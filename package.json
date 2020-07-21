@@ -1,0 +1,14 @@
+{
+  "name": "girlfriendgetaway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run compile-frontend && npm run move-frontend && npm run start-server",
+    "start-server": "mvnw sprint-boot:run",
+    "compile-frontend": "cd src\\main\\frontend && npm run build",
+    "move-frontend": "mv src\\main\\frontend\\build src\\main\\resources\\static"
+  },
+  "author": "",
+  "license": "ISC"
+}
