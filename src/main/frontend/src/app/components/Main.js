@@ -5,35 +5,36 @@ import AuthenticatedRoute from "./authentication/routes/AuthenticatedRoute";
 import AdminRoute from "./authentication/routes/AdminRoute";
 import AnonymousRoute from "./authentication/routes/AnonymousRoute";
 import ConfigService from "./services/ConfigService";
-import UserService from "./services/UserService";
+import AuthService from "./services/AuthService";
 
 import Navbar from "./index/Navbar";
 import Footer from "./index/Footer";
 import Home from "./index/Home";
 import About from './about/About';
-import Registration from "./authentication/Register";
-import Login from "./authentication/Login";
+import Registration from "./authentication/registration/Register";
+import Login from "./authentication/login/Login";
 import Logout from "./authentication/Logout";
-import Account from "./services/Account.js";
-import Admin from "./admin/Admin.js";
-import Availabillity from "./services/Availabillity.js";
+import Account from "./account/Account";
+import Admin from "./admin/Admin";
+import Availabillity from "./availabillity/Availabillity";
+import NotificationBar from "./notifications/NotificationBar";
 
+import UserContext from "./context/UserContext";
+import NotificationContext from "./context/NotificationContext";
 
 class Main extends Component {
 
-  componentDidMount() {
-    // ConfigService.initialConfig();
-  }
-
   render() {
     return(
-        
-          <Router>
-                
-            <header>
-              <Navbar />
-            </header>
 
+        <Router>
+
+          <header>
+            <Navbar />
+            <NotificationBar notification={this.props.notification} removeNotification={this.props.removeNotification}/>
+          </header>
+
+          <body>
             <Switch>
                 
               <Route path="/about">
@@ -42,18 +43,18 @@ class Main extends Component {
 
               <Route path="/availabillity">
                 <Availabillity />
-              </Route>
+              </Route>  
 
               <Route path="/register">
-                <Registration />
+                <Registration sendNotification={this.props.sendNotification}/>
               </Route>
 
               <AnonymousRoute component={Login} path="/login" >
-                <Login />
+                <Login sendNotification={this.props.sendNotification}/>
               </AnonymousRoute>
 
               <AuthenticatedRoute component={Logout} path="/logout" >
-                <Logout />
+                <Logout sendNotification={this.props.sendNotification}/>
               </AuthenticatedRoute>
 
               <AuthenticatedRoute component={Account} path="/account">
@@ -65,17 +66,17 @@ class Main extends Component {
               </AdminRoute>   
 
               <Route path="/">
-                <Home />
+                <Home notification={this.props.notification} removeNotification={this.props.removeNotification} sendNotification={this.props.sendNotification}/>
               </Route>
 
             </Switch>
+          </body>
 
-            <footer>
-              <Footer />
-            </footer>                
+          <footer >
+            <Footer />
+          </footer>
 
-          </Router> 
-
+        </Router>
 
     );
   }

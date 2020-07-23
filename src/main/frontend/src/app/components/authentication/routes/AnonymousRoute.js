@@ -1,6 +1,5 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import UserService from "../../services/UserService";
 import UserContext from "../../context/UserContext";
 
 
@@ -10,7 +9,7 @@ class AnonymousRoute extends Component {
 	render() {
 		const { user, loginUser, logoutUser } = this.context;
 		if (!user.getIsUserLoggedIn()) {
-			return <Route component={this.props.component} />	
+			return <Route {...this.props} component={this.props.component} />	
 		}  else {
 			return <Redirect to="/" />	
 		}

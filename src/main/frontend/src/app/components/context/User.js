@@ -1,11 +1,10 @@
 
 
 class User {
-	constructor() {
-		this.isUserLoggedIn = false;
-		this.isAdminLoggedIn = false;
-		this.username = null;
-		this.token=null;
+	constructor(username, token, isAdmin) {
+		this.setUsername(username);
+		this.setIsAdminLoggedIn(isAdmin);
+		this.setToken(token);
 	}
 
 	login(username, token, isAdmin) {
@@ -33,8 +32,14 @@ class User {
 	getUsername() {
 		return this.username;
 	}
+	
 	setUsername(username) {
 		this.username=username;
+		if (username != null) {
+			this.isUserLoggedIn = true;
+		} else {
+			this.isUserLoggedIn = false;
+		}
 	}
 
 	getToken() {

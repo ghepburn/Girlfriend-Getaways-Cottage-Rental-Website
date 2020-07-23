@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import UserService from "../services/UserService";
 import {Redirect} from "react-router-dom";
 import UserContext from "../context/UserContext";
+import AuthService from "../services/AuthService";
+import NotificationService from "../services/NotificationService";
 
 export class Logout extends Component {
 	static contextType = UserContext;
@@ -9,9 +10,9 @@ export class Logout extends Component {
 	render() {
 
 		const { user, loginUser, logoutUser } = this.context;
-		console.log("in logout...");
-		console.log(user, logoutUser);
-		logoutUser();
+		AuthService.logoutUser(logoutUser);
+		let notification = NotificationService.getLogoutNotification(user.getUsername());
+		this.props.sendNotification(notification);
 		return <Redirect to="/" />;
 
 	}

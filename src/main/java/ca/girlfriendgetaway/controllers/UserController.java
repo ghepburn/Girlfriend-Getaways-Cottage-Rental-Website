@@ -85,5 +85,14 @@ public class UserController {
 	public void deleteUserByUsername(@PathVariable String username) {
 		repository.deleteByUsername(username);
 	}
+	
+	@GetMapping("/{username}/exists")
+	public boolean usernameExists(@PathVariable String username) {
+		if (repository.existsByUsername(username)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }
