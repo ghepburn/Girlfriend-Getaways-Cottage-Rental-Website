@@ -21,6 +21,8 @@ class App extends Component {
     this.logoutUser = this.logoutUser.bind(this);
     this.sendNotification = this.sendNotification.bind(this);
     this.removeNotification = this.removeNotification.bind(this);
+
+    RestService.setupAxiosInitialInterceptors();
   }
 
   loginUser(user) {
@@ -55,9 +57,11 @@ class App extends Component {
           <React.Fragment >
 
             <UserContext.Provider value={{user, loginUser, logoutUser}} >
+              <NotificationContext.Provider value={{notification, sendNotification, removeNotification}} >
 
-              <Main notification={notification} sendNotification={sendNotification} removeNotification={removeNotification}/>
+                <Main notification={notification} sendNotification={sendNotification} removeNotification={removeNotification}/>
 
+              </NotificationContext.Provider >
             </UserContext.Provider >
 
           </React.Fragment >

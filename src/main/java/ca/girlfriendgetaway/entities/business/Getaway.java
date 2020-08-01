@@ -1,10 +1,12 @@
 package ca.girlfriendgetaway.entities.business;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Getaway {
 
 	private Long id;
 	private Booking booking;
-	private List<User> members;
+	private List<Attendee> attendees;
 	private List<Craft> crafts;
 	private String invoice;
 	private int numOfVehicles;
@@ -32,14 +34,15 @@ public class Getaway {
 	
 	public Getaway() {}
 	
-	public Getaway(Booking booking, List<User> members, List<Craft> crafts, String invoice, int numOfVehicles, int numOfPets, String desc) {
-		this.booking = booking;
-		this.setMembers(members);
-		this.crafts = crafts;
-		this.invoice = invoice;
-		this.numOfVehicles = numOfVehicles;
-		this.numOfPets = numOfPets;
-		this.desc = desc;
+	public Getaway(Booking booking, List<Attendee> attendees, List<Craft> crafts, String invoice,
+			int numOfVehicles, int numOfPets, String desc) {
+		this.setBooking(booking);
+		this.setAttendees(attendees);
+		this.setCrafts(crafts);
+		this.setInvoice(invoice);
+		this.setNumOfVehicles(numOfVehicles);
+		this.setNumOfPets(numOfPets);
+		this.setDesc(desc);
 	}
 
 	@Id @GeneratedValue
@@ -50,24 +53,23 @@ public class Getaway {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	@OneToOne(mappedBy="getaway", cascade=CascadeType.ALL)
+
+	@OneToOne
 	public Booking getBooking() {
 		return booking;
 	}
 
 	public void setBooking(Booking booking) {
 		this.booking = booking;
-		booking.setGetaway(this);
-	}
-	
-	@OneToMany
-	public List<User> getMembers() {
-		return members;
 	}
 
-	public void setMembers(List<User> members2) {
-		this.members = members2;
+	@ElementCollection
+	public List<Attendee> getAttendees() {
+		return this.attendees;
+	}
+
+	public void setAttendees(List<Attendee> attendees) {
+		this.attendees = attendees;
 	}
 
 	@ManyToMany
@@ -110,5 +112,5 @@ public class Getaway {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-		
+	
 }

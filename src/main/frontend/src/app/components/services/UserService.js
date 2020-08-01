@@ -7,9 +7,13 @@ class UserService {
 		return RestService.get(this.usersApiEndpoint);
 	}
 
-	getUserByUsername(username) {
+	static getUserByUsername(username) {
 		let apiEndpoint = this.usersApiEndpoint + "/" + username;
 		return RestService.get(apiEndpoint);
+	}
+
+	static getUserGetaways(username) {
+		let apiEndpoint = this.usersApiEndpoint + "/" + username + "/getaways";
 	}
 	
 }

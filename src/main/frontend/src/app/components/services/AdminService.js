@@ -2,29 +2,26 @@ import RestService from "./RestService";
 
 class AdminService {
 
-	constructor() {
-		this.roleApiEndpoint = "/api/authorities/";
-		this.usersApiEndpoint = "/api/users";
-		this.username = "";
-		this.userRole = "";
-		this.userEnabled = "";
-	}
+	static roleApiEndpoint = "/api/authorities/";
+	static usersApiEndpoint = "/api/users";
+	static getawaysApiEndpoint= "/api/getaways/";
 
-	getAllUsers() {
+	static getAllUsers() {
+		console.log(this.usersApiEndpoint);
 		return RestService.get(this.usersApiEndpoint);
 	}
 
-	getUserAuthority(username) {
+	static getUserAuthority(username) {
 		const userAuthorityApiEndpoint = this.getEditRoleApiEndpoint(username);
 		console.log(userAuthorityApiEndpoint);
 		return RestService.get(userAuthorityApiEndpoint);
 	}
 
-	getEditRoleApiEndpoint(username) {
+	static getEditRoleApiEndpoint(username) {
 		return this.roleApiEndpoint + username;
 	}
 
-	makeUserAdmin(username, role, enabled) {
+	static makeUserAdmin(username, role, enabled) {
 		console.log("making admin...");
 		if (role != "ROLE_ADMIN") {
 			let data = {"username":username, "role":"ROLE_ADMIN", "enabled":enabled}
@@ -32,7 +29,7 @@ class AdminService {
 		}
 	}
 
-	makeUserUser(username, role, enabled) {
+	static makeUserUser(username, role, enabled) {
 		console.log("making user...");
 		if (role != "ROLE_USER") {
 			let data = {"username":username, "role": "ROLE_USER", "enabled":enabled}
@@ -40,14 +37,14 @@ class AdminService {
 		}
 	}
 
-	disableUser(username, role, enabled) {
+	static disableUser(username, role, enabled) {
 		if (enabled == "true") {
 			let data = {"username":username, "role": role, "enabled":"false"}
 			return RestService.put(this.getEditRoleApiEndpoint(username), data);
 		}
 	}
 
-	enableUser(username, role, enabled) {
+	static enableUser(username, role, enabled) {
 		if (enabled == "false") {
 			let data = {"username":username, "role": role, "enabled":"true"}
 			return RestService.put(this.getEditRoleApiEndpoint(username), data);
@@ -56,4 +53,4 @@ class AdminService {
 
 }
 
-export default new AdminService();
+export default AdminService;

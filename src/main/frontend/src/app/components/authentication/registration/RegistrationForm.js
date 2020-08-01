@@ -7,12 +7,12 @@ export class Register extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: null,
-			firstName: null,
-			lastName: null,
-			email: null,
-			password: null,
-			confirmPassword: null,
+			username: "",
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
 			
 			usernameErrors: "",
 			firstNameErrors: "",
@@ -24,6 +24,7 @@ export class Register extends Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.registerClicked = this.registerClicked.bind(this);
+		this.disableButton = this.disableButton.bind(this);
 	}
 
 	handleChange(e) {
@@ -41,11 +42,25 @@ export class Register extends Component {
 	}
 
 	registerClicked() {
-		this.props.registerClicked(this.state.username, this.state.firstName, this.state.lastName, this.state.email, this.state.password, this.state.confirmPassword);
+		console.log("disabledButton says..." + this.disableButton());
+		if (!this.disableButton()) {
+			console.log("clicking!");
+			this.props.registerClicked(this.state.username, this.state.firstName, this.state.lastName, this.state.email, this.state.password, this.state.confirmPassword);
+		} else {
+			console.log("click denied");
+		}
+	}
+
+	disableButton() {
+		if (ValidationService.isValid(this.state.username, this.state.usernameErrors) && ValidationService.isValid(this.state.email, this.state.emailErrors) && ValidationService.isValid(this.state.password, this.state.passwordErrors) && ValidationService.isValid(this.state.confirmPasswordErrors, this.state.confirmPasswordErrors)) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	render() {
-
+			
 		return (
 			
 			<div>

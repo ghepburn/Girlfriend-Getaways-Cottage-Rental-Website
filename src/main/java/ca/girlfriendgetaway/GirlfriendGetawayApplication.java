@@ -1,6 +1,8 @@
 package ca.girlfriendgetaway;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ca.girlfriendgetaway.entities.accounting.Invoice;
 import ca.girlfriendgetaway.entities.accounting.InvoiceItem;
 import ca.girlfriendgetaway.entities.accounting.Item;
+import ca.girlfriendgetaway.entities.business.Attendee;
 import ca.girlfriendgetaway.entities.business.Booking;
 import ca.girlfriendgetaway.entities.business.Craft;
 import ca.girlfriendgetaway.entities.business.Getaway;
@@ -27,7 +30,6 @@ import ca.girlfriendgetaway.repositories.AuthorityRepository;
 import ca.girlfriendgetaway.repositories.BookingRepository;
 import ca.girlfriendgetaway.repositories.CraftRepository;
 import ca.girlfriendgetaway.repositories.GetawayRepository;
-import ca.girlfriendgetaway.repositories.InvoiceRepository;
 import ca.girlfriendgetaway.repositories.UserRepository;
 
 @SpringBootApplication
@@ -52,11 +54,14 @@ public class GirlfriendGetawayApplication {
 			Craft painting = crepository.save(new Craft("painting", "painting class"));
 			Craft blanket = crepository.save(new Craft("blanket", "quilting class"));
 					
-			Booking booking = new Booking(new Date(01012020), new Date(01022020), new Date(01022020), greg);
+			Booking weekOne = brepository.save(new Booking(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 1, 7)));
+			Booking weekTwo = brepository.save(new Booking(LocalDate.of(2020, 1, 8), LocalDate.of(2020, 1, 15)));
 	
+			
 			List<Craft> crafts = Arrays.asList(blanket, painting);
-
-			Getaway getaway = grepository.save(new Getaway(booking, Arrays.asList(greg, val), crafts, "a invoice", 1, 0, ""));
+			List<Attendee> Myatendees = Arrays.asList(new Attendee(greg), new Attendee("Lori", "Hepburn"));
+			
+			Getaway getaway = grepository.save(new Getaway(weekOne, Myatendees, crafts, "a invoice", 2, 1, "family vaca baby"));
 			
 			
 		};

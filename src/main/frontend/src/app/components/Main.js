@@ -16,8 +16,8 @@ import Login from "./authentication/login/Login";
 import Logout from "./authentication/Logout";
 import Account from "./account/Account";
 import Admin from "./admin/Admin";
-import Availabillity from "./availabillity/Availabillity";
 import NotificationBar from "./notifications/NotificationBar";
+import Bookings from "./getaway/Bookings";
 
 import UserContext from "./context/UserContext";
 import NotificationContext from "./context/NotificationContext";
@@ -42,7 +42,7 @@ class Main extends Component {
               </Route>
 
               <Route path="/availabillity">
-                <Availabillity />
+                <Bookings sendNotification={this.props.sendNotification}/>
               </Route>  
 
               <Route path="/register">

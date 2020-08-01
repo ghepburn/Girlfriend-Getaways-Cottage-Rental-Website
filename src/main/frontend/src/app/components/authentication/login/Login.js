@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import NotificationService from "../../services/NotificationService";
 import AuthService from "../../services/AuthService";
@@ -52,4 +52,4 @@ class Login extends Component {
 	}
 };
 
-export default Login;
+export default withRouter(Login);

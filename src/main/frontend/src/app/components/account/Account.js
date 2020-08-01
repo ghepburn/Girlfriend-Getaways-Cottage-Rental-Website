@@ -29,31 +29,29 @@ export class Account extends Component {
 
 
 	showUserSettings() {
-		let currentState = this.state.showUserSettings;
-		this.setState({ showUserSettings: !currentState });
-		this.setState({ showUserGetaways: false });
+		this.setState({ showUserSettings: !this.state.showUserSettings, showUserGetaways: false });
 	}
 
 	showUserGetaways() {
-		let currentState = this.state.showUserGetaways;
-		this.setState({ showUserGetaways: !currentState });
-		this.setState({ showUserSettings: false });
+		this.setState({ showUserSettings: false, showUserGetaways: !this.state.showUserGetaways });
 	}
 
 	render() {
-		const { user } = this.context;
-		const userSettings = this.state.showUserSettings ? <UserSettings /> : "";
-		const userGetaways = this.state.showUserGetaways ? <UserGetawayList /> : "";
+		const {user} = this.context;
+		const userSettings = this.state.showUserSettings ? <UserSettings user={this.state.user}/> : "";
+		const userGetaways = this.state.showUserGetaways ? <UserGetawayList user={this.state.user}/> : "";
 
 		return (
 			<div>
 				<h1>{user.getUsername()}'s' Account Page</h1>
 				<div>
-					<button onClick={this.showUserSettings}>User Settings</button>
-					<button onClick={this.showUserGetaways}>User Getaways</button>
+					<button onClick={this.showUserSettings}>Settings</button>
+					<button onClick={this.showUserGetaways}>Getaways</button>
 				</div>
+
 				{userSettings}
 				{userGetaways}
+
 			</div>
 		);
 	}

@@ -26,13 +26,17 @@ class RestService {
     }
 
     get(apiEndpoint) {
-    	return axios.get(apiEndpoint)
-        .then((response)=>{return response})
-        .catch((error)=>{console.log(error.message)})
+    	return axios.get(apiEndpoint);
+        // .then((response)=>{return response})
+        // .catch((error)=>{console.log(error.message)})
     }
 
     put(apiEndpoint, jsonData) {
         return axios.put(apiEndpoint, jsonData);
+    }
+
+    delete(apiEndpoint) {
+        return axios.delete(apiEndpoint);
     }
 
 	createJwtToken(token) {

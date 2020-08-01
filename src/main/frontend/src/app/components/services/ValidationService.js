@@ -28,6 +28,12 @@ class ValidationService {
 				return this.validateProvince(inputValue);
 			case "country":
 				return this.validateCountry(inputValue);
+			case "startdate":
+				return this.validateStartDate(inputValue);
+			case "enddate":
+				return this.validateEndDate(inputValue);
+			case "attendeeemail":
+				return this.validateAttendeeEmail(inputValue);
 		}
 	}
 
@@ -60,6 +66,15 @@ class ValidationService {
 			errors += " please provide a valid email."
 		}
 		return errors;
+	}
+
+	static validateAttendeeEmail(email) {
+		let errors = "";
+		if (email.length > 1) {
+			return this.validateEmail(email);
+		} else {
+			return errors;
+		}
 	}
 	
 	static validatePassword(password) {
@@ -115,6 +130,30 @@ class ValidationService {
 	static validateCountry(country) {
 		let errors = "";
 		return errors;
+	}
+
+	static validateStartDate(date) {
+		let errors = "";
+		if (date.length != 10 || !date.includes("-")) {
+			errors += "please follow the correct date format (YYYY-MM-DD)";
+		}
+		return errors;
+	}
+
+	static validateEndDate(date) {
+		let errors = "";
+		if (date.length != 10 || !date.includes("-")) {
+			errors += "please follow the correct date format (YYYY-MM-DD)";
+		}
+		return errors;
+	}
+	
+	static isValid(input, inputError) {
+		if (input.length > 1 && inputError.length < 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 

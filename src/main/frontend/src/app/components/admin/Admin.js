@@ -1,47 +1,52 @@
 import React, { Component } from "react";
-import AdminService from "../services/AdminService";
-import UserList from "./users/UserList";
+import UserList from "../users/UserList";
 import GetawayList from "./getaways/GetawayList";
+import AdminBookings from "./AdminBookings";
+import CraftList from "../crafts/CraftList";
 
 export class Admin extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			users: [],
-			getaways: [],
-			authorities: []
+			showUsers: false,
+			showGetaways: false,
+			showCrafts: false,
+			showBookings: false
 		};
+
+		this.handleClick =  this.handleClick.bind(this);
 	}
 
-	componentDidMount() {
-		AdminService.getAllUsers()
-			.then((response) => {
-				console.log(response);
-				this.setState({users: response.data});
-			});
-		// axios.interceptors.response.use(res=>{console.log(res.request_header)});
-		// axios.get(getawaysApiEndpoint)
-		// 	.then((response) => this.setState({getaways: response.data._embedded.getaways}));
-		// axios.get(authorityApiEndpoint)
-		// 	.then((response) => this.setState({authorities: response.data._embedded.authorities}));	
+	handleClick(e) {
+		this.setState({
+			showUsers: false, showGetaways: false, showCrafts: false, showBookings: false
+		});
+		this.setState({[e.target.name]: true});
 	}
 
 	render() {
-		// const users = this.state.users.map(user => <p>{users.firstName}</p>);
+
+		const users = this.state.showUsers ? <UserList /> : "";
+		const getaways = this.state.showGetaways ? "getaways": ""; 
+		const crafts = this.state.showCrafts ? <CraftList admin="true" /> : ""; 
+		const bookings = this.state.showBookings ? <AdminBookings />: ""; 
+
 		return (
 			<div>
 
-				<h1>Admin Page</h1>
-
-				
+				<h1>Admin Page</h1>	
 				<div>
-					<h3>Active Users Baby</h3>
-					<UserList users={this.state.users}/>
+					<button name="showUsers" onClick={this.handleClick}>Users</button>
+					<button name="showGetaways" onClick={this.handleClick}>Getaways</button>
+					<button name="showCrafts" onClick={this.handleClick}>Crafts</button>
+					<button name="showBookings" onClick={this.handleClick}>Bookings</button>
 				</div>
-				// <div>
-				// 	<h3>Getaways</h3>
-				// 	<GetawayList getaways={this.state.getaways} />
-				// </div>
+				<div>
+					{users}
+					{getaways}
+					{crafts}
+					{bookings}
+				</div>
 			
 			</div>
 		);
