@@ -156,6 +156,17 @@ class ValidationService {
 		}
 	}
 
+	static confirmPassword(password, confirmedPassword) {
+		let errors = "";
+		if (password !== confirmedPassword) {
+			errors += "Passwords do not match"
+		} 
+		if (password.length < 6) {
+			errors += "Password must be greater then 6 characters"
+		}
+		return errors;
+	}
+
 
 
 }

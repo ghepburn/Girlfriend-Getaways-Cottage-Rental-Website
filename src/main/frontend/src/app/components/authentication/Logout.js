@@ -1,21 +1,31 @@
 import React, { Component } from "react";
 import {Redirect} from "react-router-dom";
-import UserContext from "../context/UserContext";
-import AuthService from "../services/AuthService";
+import withAuthContext from "../wrappers/withAuthContext";
+import withNotificationContext from "../wrappers/withNotificationContext";
 import NotificationService from "../services/NotificationService";
 
-export class Logout extends Component {
-	static contextType = UserContext;
 
+
+class Logout extends Component {
+	state={
+		username: "",
+		loggedOut: false
+	}
+
+	async componentDidMount() {
+		let username = this.props.authContext.user.username;
+		await this.props.authContext.logoutUser();
+		this.setState({username: username, loggedOut: true});
+		await this.props.notificationContext.sendNotification(NotificationService.getLogoutNotification(this.state.username));
+	}
+	
 	render() {
-
-		const { user, loginUser, logoutUser } = this.context;
-		AuthService.logoutUser(logoutUser);
-		let notification = NotificationService.getLogoutNotification(user.getUsername());
-		this.props.sendNotification(notification);
-		return <Redirect to="/" />;
-
+		if (this.state.loggedOut) {
+			return <Redirect to="/" />;
+		} else {
+			return null;
+		}	
 	}
 };
 
-export default Logout;
+export default withAuthContext(withNotificationContext(Logout));

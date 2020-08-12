@@ -1,7 +1,7 @@
-import React, {Componenet} from "react";
-import Button from "../Button";
+import React, {Component} from "react";
+import SingleActionButton from "../buttons/SingleActionButton";
 
-class DisplayEditInput extends Componenet {
+class DisplayEditInput extends Component {
 
 	constructor(props) {
 		super(props);
@@ -28,11 +28,11 @@ class DisplayEditInput extends Componenet {
 
 			<React.Fragment>
 				<td>{display}</td>
-				<td><Button onClick={this.handleClick} onButtonText="Apply" offButtonText="Edit" /></td>
+				<td><SingleActionButton onClick={this.handleClick} onButtonText="Apply" offButtonText="Edit" /></td>
 			</React.Fragment>
 		);
 	}
 
 }
 
-export default CommonInput
+export default DisplayEditInput

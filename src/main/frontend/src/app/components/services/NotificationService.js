@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Notification from "../context/Notification";
+import Notification from "../globalState/notificationContext/Notification";
 
 class NotificationService extends Component {
 
@@ -13,7 +13,7 @@ class NotificationService extends Component {
 	static getSuccessfulLoginNotification(username) {
 		let action = this.successAction;
 		let message = "Welcome " + username + "!";
-		let ttl = 1;
+		let ttl = 3;
 		return this.createNotification(action, message, ttl);
 	}
 	static getFailedLoginNotification() {
@@ -26,21 +26,21 @@ class NotificationService extends Component {
 	static getLogoutNotification(username) {
 		let action = this.successAction;
 		let message = "See you next time " + username + "!";
-		let ttl = 1;
+		let ttl = 2;
 		return this.createNotification(action, message, ttl);
 	}
 
 	static getSuccessfulRegistrationNotification(username) {
 		let action = this.successAction;
 		let message = "Account successfully created for " + username + "!";
-		let ttl = 2;
+		let ttl = 3;
 		return this.createNotification(action, message, ttl);
 	}
 
-	static getFailedRegistrationNotification() {
-		let action = this.failedAction;
-		let message = "Incorrect registration information provided.  Please correct and try again.";
-		let ttl = 1;
+	static getSuccessfulSettingsChangeNotification() {
+		let action = this.successAction;
+		let message = "Settings change applied.";
+		let ttl = 3;
 		return this.createNotification(action, message, ttl);
 	}
 

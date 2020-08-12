@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router-dom";
-import UserContext from "../context/UserContext";
+import AuthContext from "../globalState/authContext/AuthContext";
 import CreateGetaway from "./CreateGetaway";
 import UserService from "../services/UserService";
 import Availabillity from "../availabillity/Availabillity";
-import Notification from "../context/Notification";
+import Notification from "../globalState/notificationContext/Notification";
 
 class Bookings extends Component {
-	static contextType = UserContext;
+	static contextType = AuthContext;
 
 	constructor(props) {
 		super(props);

@@ -1,60 +1,49 @@
 import React, { Component } from "react";
-import UserContext from "../context/UserContext";
-import UserSettings from "./settings/UserSettings";
-import UserGetawayList from "./getaways/UserGetawayList";
+import withAuthContext from "../wrappers/withAuthContext";
+import withNotificationContext from "../wrappers/withNotificationContext";
 import UserService from "../services/UserService";
+import NotificationService from "../services/NotificationService";
+import AccountSettings from "./AccountSettings";
+import SingleActionButton from "../functional/buttons/SingleActionButton";
 
 export class Account extends Component {
-	static contextType = UserContext;
-
 	constructor(props) {
 		super(props);
 		this.state={
-			user: null,
-			showUserSettings: false,
-			showUserGetaways: false
+			toggleView: false,
+			generalError: ""
 		}
-
-		this.showUserSettings = this.showUserSettings.bind(this);
-		this.showUserGetaways = this.showUserGetaways.bind(this);
-	} 
-
-	componentDidMount() {
-		const { user } = this.context;
-		UserService.getUserByUsername(user.getUsername())
-		.then((response)=> {
-			this.setState({user:response.data});
-		}).catch()
+		this.saveUser = this.saveUser.bind(this);
 	}
 
-
-	showUserSettings() {
-		this.setState({ showUserSettings: !this.state.showUserSettings, showUserGetaways: false });
+	async saveUser(user) {
+		let savedUser = await UserService.saveUser(user);
+		if (savedUser.isAuthenticated) {
+			this.props.authContext.changeUser(savedUser);
+			this.props.notificationContext.sendNotification(NotificationService.getSuccessfulSettingsChangeNotification());
+		} else {
+			this.setState({generalError: "changes not saved. Please try again."});
+		}
 	}
 
-	showUserGetaways() {
-		this.setState({ showUserSettings: false, showUserGetaways: !this.state.showUserGetaways });
+	handleClick = () => {
+		this.setState({toggleView: !this.state.toggleView});
 	}
 
 	render() {
-		const {user} = this.context;
-		const userSettings = this.state.showUserSettings ? <UserSettings user={this.state.user}/> : "";
-		const userGetaways = this.state.showUserGetaways ? <UserGetawayList user={this.state.user}/> : "";
 
-		return (
+		const settings = this.state.toggleView ? <AccountSettings user={this.props.authContext.user} generalErrors={this.state.generalErrors} saveUser={this.saveUser}/> : ""
+
+		return(
 			<div>
-				<h1>{user.getUsername()}'s' Account Page</h1>
+				<h3>Hi {this.props.authContext.user.username}!</h3>
 				<div>
-					<button onClick={this.showUserSettings}>Settings</button>
-					<button onClick={this.showUserGetaways}>Getaways</button>
+					<SingleActionButton onClick={this.handleClick} onButtonText="Close" offButtonText="Settings"/> 
 				</div>
-
-				{userSettings}
-				{userGetaways}
-
+				{settings}
 			</div>
 		);
 	}
 }
 
-export default Account;
+export default withNotificationContext(withAuthContext(Account));

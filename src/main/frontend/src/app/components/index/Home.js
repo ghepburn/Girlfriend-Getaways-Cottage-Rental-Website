@@ -1,31 +1,26 @@
 import React, { Component } from "react";
-import Notification from "../context/Notification";
+import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
+import Notification from "../globalState/notificationContext/Notification";
+import withNotificationContext from "../wrappers/withNotificationContext";
+import withAuthContext from "../wrappers/withAuthContext";
 
-export class Home extends Component {
+import LoginForm from "../forms/LoginForm";
 
-	constructor(props) {
-		super(props);
-		this.createNotification = this.createNotification.bind(this);
-	} 
-
-	createNotification() {
-		if (!this.props.notification.getIsNotification()) {
-			let currentUser = this.props.user;
-			this.props.sendNotification(new Notification("SUCCESS", "MADE A NOTI...WITH " + currentUser, 2));
-		} else {
-			this.props.removeNotification();
-		}	
-
+class Home extends Component {
+	componentDidMount() {
 	}
-
 	render() {
+
+		const username = this.props.authContext.user.username == null ? <p>"its null"</p> : this.props.authContext.user.username; 
+
 		return (
 			<div>
-				<h1>Home Page</h1><br></br>
-				<button onClick={this.createNotification}>Create Notification</button>
+				Home Page
+				<p>{username}</p>
+				{this.props.authContext.user.email}
 			</div>
 		);
 	}
-};
+}
 
-export default Home;
+export default withAuthContext(withNotificationContext(Home));

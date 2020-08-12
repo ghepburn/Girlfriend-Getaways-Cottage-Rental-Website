@@ -5,39 +5,35 @@ import AuthenticatedNavs from "./navs/AuthenticatedNavs";
 import AnonymousNavs from "./navs/AnonymousNavs";
 import AdminNavs from "./navs/AdminNavs";
 
-import UserContext from "../context/UserContext";
+import AuthContext from "../globalState/authContext/AuthContext";
+import withAuthContext from "../wrappers/withAuthContext";
 
-export class Navbar extends Component {
-	static contextType = UserContext;
+const Navbar = (props) => {
+	let user = props.authContext.user;
+	const remainingNavs = user.isAuthenticated ? <AuthenticatedNavs user={user}/> : <AnonymousNavs />;
+	const adminNavs = user.isAdmin ? <AdminNavs /> : " ";
 
-	render() {
-		const { user, loginUser, logoutUser } = this.context;
-		const remainingNavs = user.getIsUserLoggedIn() ? <AuthenticatedNavs /> : <AnonymousNavs />;
-		const adminNavs = user.getIsAdminLoggedIn() ? <AdminNavs /> : " "; 
+	return (
 
-		return (
+		<nav id="primary-nav">
 
-			<nav id="primary-nav">
-
-				<ul>
-					<Link to="/">
-						<li>Home</li>
-					</Link>
-					<Link to="/about">
-						<li>About</li>
-					</Link>
-					<Link to="/availabillity">
-						<li>Availabillity</li>
-					</Link>
-					{remainingNavs}
-					{adminNavs}
-				</ul>
-			</nav>
+			<ul>
+				<Link to="/">
+					<li>Home</li>
+				</Link>
+				<Link to="/about">
+					<li>About</li>
+				</Link>
+				<Link to="/availability">
+					<li>Availability</li>
+				</Link>
+				{remainingNavs}
+				{adminNavs}
+			</ul>
+		</nav>
 
 
-		);
-	}
+	);
 };
-// NavBar.contextType = AuthContext;
 
-export default Navbar
+export default withAuthContext(Navbar);

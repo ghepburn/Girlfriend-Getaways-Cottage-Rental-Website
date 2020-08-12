@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Button from "../../functional/Button";
+import SingleActionButton from "../../functional/buttons/SingleActionButton";
 
 class GetawayDetails extends Component {
 	constructor(props) {
@@ -29,7 +29,7 @@ class GetawayDetails extends Component {
 				Number Of Vehicles: <input name="numOfVehicles" defaultValue={this.state.numOfVehicles} onChange={this.handleChange}/>
 				<br />Number Of Pets: <input name="numOfPets" defaultValue={this.state.numOfPets} onChange={this.handleChange}/>\
 				<br />Notes to owner: <textArea name="desc" rows="4" cols="50" onChange={this.handleChange}/>			
-				<br /><Button onClick={this.setDetails} onButtonText="Update" offButtonText="Confirm" />
+				<br /><SingleActionButton onClick={this.setDetails} onButtonText="Update" offButtonText="Confirm" />
 			</div>
 		);
 	}

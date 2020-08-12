@@ -10,7 +10,7 @@ export class AuthenticatedNavs extends Component {
 				<Link to="/logout">
 					<li>Logout</li>
 				</Link>
-				<Link to="/account">
+				<Link to={"/account/" + this.props.user.username}>
 					<li>Account</li>
 				</Link>
 			</div>
@@ -18,4 +18,4 @@ export class AuthenticatedNavs extends Component {
 	}
 };
 
-export default AuthenticatedNavs
+export default AuthenticatedNavs;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EditCraft from "./EditCraft";
 import CraftService from "../services/CraftService";
-import Button from "../functional/Button";
+import SingleActionButton from "../functional/buttons/SingleActionButton";
 
 
 class Craft extends Component{
@@ -22,7 +22,7 @@ class Craft extends Component{
 	render() {
 
 		const editCraft = this.state.showEditCraft ? <EditCraft craft={this.props.craft} updateState={this.props.updateState} removeFromState={this.props.removeFromState}/> : "";
-		const craftButton = this.props.admin === "true" ? <Button onClick={this.showEditCraft} onButtonText="Close" offButtonText="Edit"/> : "";
+		const craftButton = this.props.admin === "true" ? <SingleActionButton onClick={this.showEditCraft} onButtonText="Close" offButtonText="Edit"/> : "";
 
 
 		return (

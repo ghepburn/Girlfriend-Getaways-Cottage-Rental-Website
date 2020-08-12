@@ -1,19 +1,19 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import UserContext from "../../context/UserContext";
+
+import withAuthContext from "../../wrappers/withAuthContext";
 
 
 class AdminRoute extends Component {
-	static contextType = UserContext
 
 	render() {
 		const { user, loginUser, logoutUser } = this.context;
-		if (user.getIsAdminLoggedIn()) {
+		if (!user.getIsUserLoggedIn()) {
 			return <Route {...this.props} component={this.props.component} />	
 		}  else {
-			return <Redirect to="/login" />	
+			return <Redirect to="/" />	
 		}
 	}
 }
 
-export default AdminRoute;
+export default withAuthContext(AdminRoute);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Booking from "./Booking";
+import Booking from "./BookingDisplay";
 import BookingService from "../services/BookingService";
 
 export class BookingList extends Component {
@@ -19,13 +19,9 @@ export class BookingList extends Component {
 		this.addToState = this.addToState.bind(this);
 	}
 
-	componentDidMount() {
-		BookingService.getAllBookings()
-			.then((response) => {
-				this.setState({bookings: response.data});
-			}).catch((error)=>{
-				console.log("ERROR...: " + error.message);
-			}); 
+	async componentDidMount() {
+		let bookings = await BookingService.getAllBookings();
+		this.setState({bookings: bookings}); 
 	}
 
 	handleClick(e) {

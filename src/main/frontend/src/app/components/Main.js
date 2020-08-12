@@ -4,23 +4,20 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthenticatedRoute from "./authentication/routes/AuthenticatedRoute";
 import AdminRoute from "./authentication/routes/AdminRoute";
 import AnonymousRoute from "./authentication/routes/AnonymousRoute";
-import ConfigService from "./services/ConfigService";
-import AuthService from "./services/AuthService";
 
 import Navbar from "./index/Navbar";
 import Footer from "./index/Footer";
 import Home from "./index/Home";
 import About from './about/About';
-import Registration from "./authentication/registration/Register";
-import Login from "./authentication/login/Login";
+import Registration from "./authentication/Registration";
+import Login from "./authentication/Login";
 import Logout from "./authentication/Logout";
 import Account from "./account/Account";
 import Admin from "./admin/Admin";
-import NotificationBar from "./notifications/NotificationBar";
-import Bookings from "./getaway/Bookings";
+import NotificationBar from "./index/NotificationBar";
+import Availability from "./availability/Availability";
 
-import UserContext from "./context/UserContext";
-import NotificationContext from "./context/NotificationContext";
+import BookNow from "./bookNow/BookNow";
 
 class Main extends Component {
 
@@ -31,43 +28,29 @@ class Main extends Component {
 
           <header>
             <Navbar />
-            <NotificationBar notification={this.props.notification} removeNotification={this.props.removeNotification}/>
+            <Route component={NotificationBar} />
           </header>
 
           <body>
             <Switch>
                 
-              <Route path="/about">
-                <About />
-              </Route>
+              <Route path="/about" component={About} />
 
-              <Route path="/availabillity">
-                <Bookings sendNotification={this.props.sendNotification}/>
-              </Route>  
+              <Route path="/availability" component={Availability} />
 
-              <Route path="/register">
-                <Registration sendNotification={this.props.sendNotification}/>
-              </Route>
+              <AuthenticatedRoute path="/booknow/:bookingId" component={BookNow} />
 
-              <AnonymousRoute component={Login} path="/login" >
-                <Login sendNotification={this.props.sendNotification}/>
-              </AnonymousRoute>
+              <Route path="/register" component={Registration} />
 
-              <AuthenticatedRoute component={Logout} path="/logout" >
-                <Logout sendNotification={this.props.sendNotification}/>
-              </AuthenticatedRoute>
+              <AnonymousRoute component={Login} path="/login" />
 
-              <AuthenticatedRoute component={Account} path="/account">
-                <Account />
-              </AuthenticatedRoute>
+              <AuthenticatedRoute component={Logout} path="/logout" />
 
-              <AdminRoute component={Admin} path="/admin">
-                <Admin />
-              </AdminRoute>   
+              <AuthenticatedRoute component={Account} path="/account/:username" />
 
-              <Route path="/">
-                <Home notification={this.props.notification} removeNotification={this.props.removeNotification} sendNotification={this.props.sendNotification}/>
-              </Route>
+              <AdminRoute component={Admin} path="/admin" />   
+
+              <Route path="/" component={Home} />
 
             </Switch>
           </body>

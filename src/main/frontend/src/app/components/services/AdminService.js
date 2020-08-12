@@ -6,48 +6,50 @@ class AdminService {
 	static usersApiEndpoint = "/api/users";
 	static getawaysApiEndpoint= "/api/getaways/";
 
-	static getAllUsers() {
-		console.log(this.usersApiEndpoint);
-		return RestService.get(this.usersApiEndpoint);
+	static async getAllUsers() {
+		let users = await RestService.get(this.usersApiEndpoint);
+		return users;
 	}
 
-	static getUserAuthority(username) {
+	static async getUserAuthority(username) {
 		const userAuthorityApiEndpoint = this.getEditRoleApiEndpoint(username);
-		console.log(userAuthorityApiEndpoint);
-		return RestService.get(userAuthorityApiEndpoint);
+		let authority = await RestService.get(userAuthorityApiEndpoint);
+		return authority;
 	}
 
 	static getEditRoleApiEndpoint(username) {
 		return this.roleApiEndpoint + username;
 	}
 
-	static makeUserAdmin(username, role, enabled) {
-		console.log("making admin...");
+	static async makeUserAdmin(username, role, enabled) {
 		if (role != "ROLE_ADMIN") {
 			let data = {"username":username, "role":"ROLE_ADMIN", "enabled":enabled}
-			return RestService.put(this.getEditRoleApiEndpoint(username), data);
+			let authority = await RestService.put(this.getEditRoleApiEndpoint(username), data);
+			return authority;
 		}
 	}
 
-	static makeUserUser(username, role, enabled) {
-		console.log("making user...");
+	static async makeUserUser(username, role, enabled) {
 		if (role != "ROLE_USER") {
 			let data = {"username":username, "role": "ROLE_USER", "enabled":enabled}
-			return RestService.put(this.getEditRoleApiEndpoint(username), data);
+			let authority = await RestService.put(this.getEditRoleApiEndpoint(username), data);
+			return authority;
 		}
 	}
 
-	static disableUser(username, role, enabled) {
+	static async disableUser(username, role, enabled) {
 		if (enabled == "true") {
 			let data = {"username":username, "role": role, "enabled":"false"}
-			return RestService.put(this.getEditRoleApiEndpoint(username), data);
+			let authority = await RestService.put(this.getEditRoleApiEndpoint(username), data);
+			return authority;
 		}
 	}
 
-	static enableUser(username, role, enabled) {
+	static async enableUser(username, role, enabled) {
 		if (enabled == "false") {
 			let data = {"username":username, "role": role, "enabled":"true"}
-			return RestService.put(this.getEditRoleApiEndpoint(username), data);
+			let authority = await RestService.put(this.getEditRoleApiEndpoint(username), data);
+			return authority;
 		}
 	}
 

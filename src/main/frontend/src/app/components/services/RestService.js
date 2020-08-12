@@ -21,22 +21,44 @@ class RestService {
         )
     }
 
-    post(apiEndpoint, jsonData) {
-    	return axios.post(apiEndpoint, jsonData);
+    handleError(message) {
+        console.log("api request error" + message);
     }
 
-    get(apiEndpoint) {
-    	return axios.get(apiEndpoint);
-        // .then((response)=>{return response})
-        // .catch((error)=>{console.log(error.message)})
+    async post(apiEndpoint, jsonData) {
+        try{
+            let response = await axios.post(apiEndpoint, jsonData);
+            return response.data;
+        } catch(error) {
+            this.handleError(error.message)
+        }
     }
 
-    put(apiEndpoint, jsonData) {
-        return axios.put(apiEndpoint, jsonData);
+    async get(apiEndpoint) {
+    	try {
+            let response = await axios.get(apiEndpoint);
+            return response.data;    
+        } catch(error) {
+            this.handleError(error.message)
+        }
     }
 
-    delete(apiEndpoint) {
-        return axios.delete(apiEndpoint);
+    async put(apiEndpoint, jsonData) {
+        try{
+            let response = await axios.put(apiEndpoint, jsonData);
+            return response;
+        } catch(error) {
+            this.handleError(error.message)
+        }
+    }
+
+    async delete(apiEndpoint) {
+        try{
+            let response = await axios.delete(apiEndpoint);
+            return response.data;
+        } catch(error) {
+            this.handleError(error.message)
+        }
     }
 
 	createJwtToken(token) {

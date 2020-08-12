@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CraftService from "../services/CraftService";
-import Button from "../functional/Button";
+import SingleActionButton from "../functional/buttons/SingleActionButton";
 import CreateCraft from "./CreateCraft";
 import Craft from "./Craft";
 
@@ -64,7 +64,7 @@ export class CraftList extends Component {
 			); 
 
 		const createCraft = this.state.showAddCraft ? <CreateCraft updateState={this.addToState}/> : "";
-		const createCraftButton = this.props.admin ==="true" ? <Button onClick={this.showcreateCraft} onButtonText="Close" offButtonText="Create Craft" /> : "";
+		const createCraftButton = this.props.admin ==="true" ? <SingleActionButton onClick={this.showcreateCraft} onButtonText="Close" offButtonText="Create Craft" /> : "";
 
 		return (
 			<div>

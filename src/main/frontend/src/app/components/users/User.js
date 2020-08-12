@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EditUser from "./EditUser";
 import AdminService from "../services/AdminService";
-import Button from "../functional/Button";
+import SingleActionButton from "../functional/buttons/SingleActionButton";
 
 
 class User extends Component{
@@ -63,7 +63,7 @@ class User extends Component{
 					<td>{this.props.user.email}</td>
 					<td>{this.state.role}</td>
 					<td>{this.state.enabled}</td>
-					<td><Button onClick={this.showEditUser} onButtonText="Close" offButtonText="Edit" /></td>
+					<td><SingleActionButton onClick={this.showEditUser} onButtonText="Close" offButtonText="Edit" /></td>
 				</tr>
 				{editUser}
 			</div>

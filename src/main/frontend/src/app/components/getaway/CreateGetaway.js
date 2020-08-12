@@ -3,8 +3,8 @@ import {Redirect} from "react-router-dom";
 import GetawaySummary from "./GetawaySummary";
 import GetawayInputs from "./GetawayInputs";
 import Getaway from "./Getaway";
-import Notification from "../context/Notification";
-import NotificationContext from "../context/NotificationContext";
+import Notification from "../globalState/notificationContext/Notification";
+import NotificationContext from "../globalState/notificationContext/NotificationContext";
 import GetawayService from "../services/GetawayService";
 
 class CreateGetaway extends Component {

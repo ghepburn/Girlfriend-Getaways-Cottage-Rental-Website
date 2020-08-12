@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import OneClickDualActionButton from "../../functional/OneClickDualActionButton";
+import SingleActionButton from "../../functional/buttons/SingleActionButton";
 import Attendee from "./Attendee";
 import ValidationService from "../../services/ValidationService";
 
@@ -81,7 +81,7 @@ class AttendeeForm  extends Component {
 			Paying Separately?: <input type="checkbox" name="payingSeparately" onClick={this.handleChange}/>
 			{emailErrors}
 			{email}
-			<OneClickDualActionButton onClick={this.addAttendee} offClick={this.updateAttendee} onButtonText="Update" offButtonText="Confirm" />
+			<SingleActionButton onClick={this.addAttendee} offClick={this.updateAttendee} onButtonText="Update" offButtonText="Confirm" />
 		</div>
 
 		);

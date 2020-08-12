@@ -4,13 +4,14 @@ class BookingService {
 
 	static bookingApiEndpoint = "/api/bookings";
 	
-	static getAllBookings() {
-		console.log(this.bookingApiEndpoint);
-		return RestService.get(this.bookingApiEndpoint);
+	static async getAllBookings() {
+		let bookings = await RestService.get(this.bookingApiEndpoint);
+		return bookings;
 	}
 
-	static getBookingById(bookingId) {
-		return RestService.get(this.bookingApiEndpoint + "/" + bookingId);
+	static async getBookingById(bookingId) {
+		let booking = await RestService.get(this.bookingApiEndpoint + "/" + bookingId);
+		return booking;
 	}
 
 	static makeAvailable(booking) {
