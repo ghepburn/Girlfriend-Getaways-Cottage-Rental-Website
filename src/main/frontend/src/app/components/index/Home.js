@@ -7,8 +7,7 @@ import withAuthContext from "../wrappers/withAuthContext";
 import LoginForm from "../forms/LoginForm";
 
 class Home extends Component {
-	componentDidMount() {
-	}
+
 	render() {
 
 		const username = this.props.authContext.user.username == null ? <p>"its null"</p> : this.props.authContext.user.username; 

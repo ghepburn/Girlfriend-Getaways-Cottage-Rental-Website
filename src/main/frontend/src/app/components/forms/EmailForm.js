@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ValidationService from "../services/ValidationService";
+import ValidationManager from "../managers/ValidationManager";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 
 class EmailForm extends Component {
@@ -22,7 +22,7 @@ class EmailForm extends Component {
 	async validateInput(name, value) {
 
 		// get and set errors
-		let errors = ValidationService.getErrors(name, value);
+		let errors = ValidationManager.getErrors(name, value);
 		if (errors !== null) {
 			await this.setState({emailErrors: errors});
 		} 

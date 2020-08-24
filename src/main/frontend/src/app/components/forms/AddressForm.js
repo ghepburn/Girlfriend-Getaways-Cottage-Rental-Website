@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
-import ValidationService from "../services/ValidationService";
+import ValidationManager from "../managers/ValidationManager";
 import Address from "../globalState/authContext/Address";
 
 class AddressForm extends Component {
@@ -47,7 +47,7 @@ class AddressForm extends Component {
 	async validateInput(name, value) {
 
 		// get and set errors
-		let errors = ValidationService.getErrors(name, value);
+		let errors = ValidationManager.getErrors(name, value);
 		if (errors !== null) {
 			let stateName = name + "Errors"
 			await this.setState({[stateName]: errors});

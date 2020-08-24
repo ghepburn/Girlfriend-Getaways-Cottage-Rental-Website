@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
-import ValidationService from "../services/ValidationService";
+import ValidationManager from "../managers/ValidationManager";
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -24,7 +24,7 @@ class LoginForm extends Component {
 	}
 
 	async validateInput(name, value) {
-		let errors = ValidationService.getErrors(name, value);
+		let errors = ValidationManager.getErrors(name, value);
 		if (errors !== null) {
 			let stateName = name + "Errors"
 			await this.setState({[stateName]: errors});

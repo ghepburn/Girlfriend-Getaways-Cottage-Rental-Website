@@ -1,14 +1,15 @@
 
 class Booking {
-	constructor(id, startDate, endDate) {
+
+	constructor(id, startDate, endDate, isBooked, isAvailable, bookedDate, bookedBy, getawayId) {
 		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.isBooked = false;
-		this.isAvailable = false;
-		this.bookedDate = null;
-		this.bookedBy = null;
-		this.getawayId = null;
+		this.isBooked = isBooked;
+		this.isAvailable = isAvailable;
+		this.bookedDate = bookedDate;
+		this.bookedBy = bookedBy;
+		this.getawayId = getawayId;
 	}
 
 	book(user) {

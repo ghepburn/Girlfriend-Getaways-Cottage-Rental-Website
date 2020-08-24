@@ -13,7 +13,7 @@ class SingleActionButton extends Component {
 
 	handleClick = () => {
 		if (this.state.buttonOn) {
-			this.setState({buttonText: this.props.offButtonText, buttonOn: !this.state.buttonOn});
+			this.setState({buttonOn: !this.state.buttonOn});
 		} else {
 			this.setState({buttonText: this.props.onButtonText, buttonOn: !this.state.buttonOn});
 		}

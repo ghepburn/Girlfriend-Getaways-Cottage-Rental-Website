@@ -95,21 +95,21 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/{username}/changePassword")
-	public EntityModel<User> changePassword(@RequestBody User user, @PathVariable String username) {
-		if (repository.existsByUsername(username)) {
-			User currentUser = repository.findByUsername(username);
-			
-			currentUser.setUsername(changedUser.getUsername());
-			currentUser.setFirstName(changedUser.getFirstName());
-			currentUser.setLastName(changedUser.getLastName());
-			currentUser.setEmail(changedUser.getEmail());
-			currentUser.setAddress(changedUser.getAddress());
-			
-			return representationModel.toModel(repository.save(currentUser));
-		} else {
-			return representationModel.toModel(repository.save(changedUser));
-		}
-	}
+//	@PutMapping("/{username}/changePassword")
+//	public EntityModel<User> changePassword(@RequestBody User user, @PathVariable String username) {
+//		if (repository.existsByUsername(username)) {
+//			User currentUser = repository.findByUsername(username);
+//			
+//			currentUser.setUsername(changedUser.getUsername());
+//			currentUser.setFirstName(changedUser.getFirstName());
+//			currentUser.setLastName(changedUser.getLastName());
+//			currentUser.setEmail(changedUser.getEmail());
+//			currentUser.setAddress(changedUser.getAddress());
+//			
+//			return representationModel.toModel(repository.save(currentUser));
+//		} else {
+//			return representationModel.toModel(repository.save(changedUser));
+//		}
+//	}
 	
 }

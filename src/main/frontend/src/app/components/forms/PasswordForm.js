@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
-import ValidationService from "../services/ValidationService";
+import ValidationManager from "../managers/ValidationManager";
 
 class RegistrationForm extends Component {
 	constructor(props) {
@@ -26,7 +26,7 @@ class RegistrationForm extends Component {
 	async validateInput() {
 
 		// get and set errors
-		let errors = ValidationService.confirmPassword(this.state.password, this.state.confirmPassword);
+		let errors = ValidationManager.confirmPassword(this.state.password, this.state.confirmPassword);
 		if (errors !== null) {
 			await this.setState({passwordErrors: errors});
 		} 

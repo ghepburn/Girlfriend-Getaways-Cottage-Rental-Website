@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {Link} from 'react-router-dom';
-import AuthService from "../services/AuthService";
 import AuthenticatedNavs from "./navs/AuthenticatedNavs";
 import AnonymousNavs from "./navs/AnonymousNavs";
 import AdminNavs from "./navs/AdminNavs";

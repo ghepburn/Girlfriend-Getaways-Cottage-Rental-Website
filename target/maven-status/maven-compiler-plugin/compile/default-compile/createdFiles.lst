@@ -21,8 +21,6 @@ ca\girlfriendgetaway\entities\accounting\InvoiceItem.class
 ca\girlfriendgetaway\repositories\UserRepository.class
 ca\girlfriendgetaway\entities\accounting\Item.class
 ca\girlfriendgetaway\security\MyUserDetails.class
-ca\girlfriendgetaway\repositories\ItemRepository.class
 ca\girlfriendgetaway\entities\business\Craft.class
 ca\girlfriendgetaway\entities\business\Getaway.class
-ca\girlfriendgetaway\repositories\InvoiceRepository.class
 ca\girlfriendgetaway\security\AuthenticationResponse.class

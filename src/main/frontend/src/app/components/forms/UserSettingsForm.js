@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
-import ValidationService from "../services/ValidationService";
+import ValidationManagers from "../managers/ValidationManagers";
 
 class UserSettingsForm extends Component {
 	constructor(props) {
@@ -31,7 +31,7 @@ class UserSettingsForm extends Component {
 	async validateInput(name, value) {
 
 		// get and set errors
-		let errors = ValidationService.getErrors(name, value);
+		let errors = ValidationManagers.getErrors(name, value);
 		if (errors !== null) {
 			let stateName = name + "Errors"
 			await this.setState({[stateName]: errors});
