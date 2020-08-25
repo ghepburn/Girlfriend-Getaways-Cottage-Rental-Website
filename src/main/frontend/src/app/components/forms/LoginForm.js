@@ -53,7 +53,7 @@ class LoginForm extends Component {
 		return (
 			<div>
 				{this.props.generalErrors}
-				{this.state.usernameErrors}
+				{this.state.usernameErrors}<br />
 				<label>Username:</label><br />
 				<input type="text" name="username" onChange={this.handleChange} /><br />
 				{this.state.passwordErrors}

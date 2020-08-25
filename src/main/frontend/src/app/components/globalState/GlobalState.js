@@ -42,13 +42,12 @@ class GlobalState extends Component {
 
 
 	async loginUser(user) {
-		let authUser = await UserManager.loginUser(user);
-		this.setState({user:authUser});
+		this.setState({user:user});
 		return user;
 	}
 
 	async logoutUser() {
-		let user = await UserManager.logoutUser(this.state.user);
+		let user = new User(null);
 		this.setState({user: user});
 		return user;
 	}
@@ -95,13 +94,18 @@ class GlobalState extends Component {
  
 
 	// CRAFT CONTEXT ------------------------------------
+	getCraft = (craftId) => {
+		let craft = this.state.crafts.filter(craft => craft.id == craftId)[0];
+		return craft;
+	}
 
 	setCrafts = (crafts) => {
 		this.setState({crafts: crafts});
 	}
 
 	addCraft = (craft) => {
-		let crafts = this.state.crafts.push(craft);
+		let crafts = this.state.crafts
+		crafts.push(craft);
 		this.setCrafts(crafts);
 	}
 
@@ -126,7 +130,7 @@ class GlobalState extends Component {
 				<BookingContext.Provider value={{bookings: this.state.bookings, addBooking: this.addBooking, removeBooking: this.removeBooking, editBooking: this.editBooking, setBookings: this.setBookings, getBooking: this.getBooking}}>
 		            <AuthContext.Provider value={{user: this.state.user, loginUser: this.loginUser, logoutUser: this.logoutUser, changeUser: this.changeUser}} >
 		              <NotificationContext.Provider value={{notification: this.state.notification, sendNotification: this.sendNotification, removeNotification: this.removeNotification}} >
-		              	<CraftContext.Provider value={{crafts: this.state.crafts, setCrafts: this.setCrafts, editCrafts: this.editCrafts, addCraft: this.addCraft, removeCraft: this.removeCraft}} >
+		              	<CraftContext.Provider value={{crafts: this.state.crafts, setCrafts: this.setCrafts, editCraft: this.editCraft, addCraft: this.addCraft, removeCraft: this.removeCraft, getCraft: this.getCraft}} >
 
 		    	            {this.props.children}
 

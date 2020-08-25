@@ -7,9 +7,9 @@ class UserAdminDualCraftDisplay extends Component {
 
 	render() {
 
-		if (this.props.crafts != null) {
+		if (this.props.craft != null) {
 			
-			let button = this.props.admin === "true" ? <Link to={"/admin/craft/" + this.props.craft.id}><button>View</button></Link> : <SingleActionButton onClick{this.props.onCraftClick} offButtonText="Choose" onButtonClick="Remove" />;
+			let button = this.props.admin === "true" ? <Link to={"/admin/craft/" + this.props.craft.id}><button>View</button></Link> : <SingleActionButton onClick={this.props.onCraftClick} offButtonText="Choose" onButtonText="Remove" />;
 
 			return (
 
@@ -36,4 +36,4 @@ class UserAdminDualCraftDisplay extends Component {
 	}
 }
 
-export default UserAdminDualCraftsDisplay;
+export default UserAdminDualCraftDisplay;

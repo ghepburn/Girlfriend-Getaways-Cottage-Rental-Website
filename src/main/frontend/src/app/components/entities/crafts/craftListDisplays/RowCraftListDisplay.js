@@ -11,7 +11,7 @@ const RowCraftListDisplay = (props) =>{
 						<th>Name</th>
 						<th>Desc</th>
 						<th>Difficulty</th>
-						<th>Hours required</th>
+						<th>Hours Required</th>
 						<th>Price Per Person</th>
 						<th></th>
 						<th></th>

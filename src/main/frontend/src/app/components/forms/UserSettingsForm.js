@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
-import ValidationManagers from "../managers/ValidationManagers";
+import ValidationManager from "../managers/ValidationManager";
+import User from "../globalState/authContext/User";
 
 class UserSettingsForm extends Component {
 	constructor(props) {
@@ -22,6 +23,17 @@ class UserSettingsForm extends Component {
 		this.validateInput = this.validateInput.bind(this);
 	};
 
+	componentDidMount() {
+		if (this.props.user) {
+			this.setState({
+				username: this.props.user.username,
+				firstName: this.props.user.firstName,
+				lastName: this.props.user.lastName,
+				email: this.props.user.email,
+			});
+		}
+	}
+
 	handleChange = (event) => {
 		this.setState({[event.target.name]: event.target.value});
 		this.validateInput(event.target.name, event.target.value)
@@ -31,7 +43,7 @@ class UserSettingsForm extends Component {
 	async validateInput(name, value) {
 
 		// get and set errors
-		let errors = ValidationManagers.getErrors(name, value);
+		let errors = ValidationManager.getErrors(name, value);
 		if (errors !== null) {
 			let stateName = name + "Errors"
 			await this.setState({[stateName]: errors});
@@ -63,26 +75,32 @@ class UserSettingsForm extends Component {
 	}
 
 	handleSubmit = () => {
-		this.props.saveClicked(this.state.username, this.state.firstName, this.state.lastName, this.state.email);
+		let user = new User(this.state.username);
+		user.firstName = this.state.firstName;
+		user.lastName = this.state.lastName;
+		user.email = this.state.email;
+		this.props.saveClicked(user);
 	}
 
 	render() {
 
+		let usernameDefault = this.props.user ? this.props.user.username : "";
+		let firstNameDefault = this.props.user ? this.props.user.firstName : "";
+		let lastNameDefault = this.props.user ? this.props.user.lastName : "";
+		let emailDefault = this.props.user ? this.props.user.email : "";
+
 		return (
 			<div>
 				{this.props.generalErrors}
-				{this.state.usernameErrors}
-				<label>Username:</label><br />
-				<input type="text" name="username" onChange={this.handleChange} /><br />
 				{this.state.firstNameErrors}
 				<label>First Name:</label><br />
-				<input type="text" name="firstName" onChange={this.handleChange} /><br />
+				<input type="text" name="firstName" onChange={this.handleChange} defaultValue={firstNameDefault} /><br />
 				{this.state.lastNameErrors}
 				<label>Last Name:</label><br />
-				<input type="text" name="lastName" onChange={this.handleChange} /><br />
+				<input type="text" name="lastName" onChange={this.handleChange} defaultValue={lastNameDefault} /><br />
 				{this.state.emailErrors}
 				<label>Email:</label><br />
-				<input type="text" name="email" onChange={this.handleChange} /><br />
+				<input type="text" name="email" onChange={this.handleChange} defaultValue={emailDefault} /><br />
 				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
 			</div>
 		);

@@ -7,19 +7,24 @@ import RestManager from "./RestManager";
 class AuthManager {
 
 	static authenticationApiEndpoint = "/api/authenticate";
-	static authorizationApiEndpoint =  "/api/authorities";
-	static registrationApiEndpoint = "/api/users";
-	static usernameExistsApiEndpoint = "/api/users/";
+
+	static async loginUser(user) {
+		this.authenticateUser(user)
+	}
 
 	static async authenticateUser(username, password) {
 		let data = {"username":username, "password":password};
 		let authentication = await RestManager.post(this.authenticationApiEndpoint, data);
-		if (authentication.enabled) {
-			let user = new User(username);
-			user.authenticate(authentication.jwt, authentication.admin)
-			return user;
-		} else {
-			return new User(null);
+		try {
+			if (authentication.enabled) {
+				let user = new User(username);
+				user.authenticate(authentication.jwt, authentication.admin)
+				return user;
+			} else {
+				let user = new User(username);
+			}
+		} catch(error) {
+			return new User(username); 
 		}
 	}
 

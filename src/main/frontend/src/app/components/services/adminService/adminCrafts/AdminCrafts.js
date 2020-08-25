@@ -35,7 +35,7 @@ class AdminCrafts extends Component {
 			<div>
 				<h3>Crafts</h3>
 
-				<CraftList Crafts={this.context.crafts} admin="true" />
+				<CraftList crafts={this.context.crafts} admin="true" />
 				<SingleActionButton onClick={this.toggleCreateCraft} offButtonText="Add Craft" onButtonText="Close"/>
 				{createCraft}
 			</div>

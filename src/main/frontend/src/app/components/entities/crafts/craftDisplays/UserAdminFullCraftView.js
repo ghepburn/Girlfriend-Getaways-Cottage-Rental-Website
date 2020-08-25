@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import withCraftContext from "../../../wrappers/withCraftContext";
 import withAuthContext from "../../../wrappers/withAuthContext";
 
-import CraftDetailsView from "./CraftDetailsView";
+import CraftDetailView from "./CraftDetailView";
 
 class UserAdminFullCraftView extends Component {
 
@@ -11,26 +11,23 @@ class UserAdminFullCraftView extends Component {
 	}
 
 	componentDidMount() {
-		let CraftId = this.props.match.params.CraftId;
-		let craft = this.props.craftContext.getCraft(CraftId);
+		let craftId = this.props.match.params.craftId;
+		let craft = this.props.craftContext.getCraft(craftId);
 		this.setState({craft: craft});
+		console.log(craft);
 	}
 
 	render() {
 
 		if (this.state.craft !== null) {
 
-			let CraftContactView = this.state.craft.bookedBy === null ? "" : <CraftContactView craft={this.state.craft} admin={this.props.admin} />;
-			let CraftGetawayView = this.state.craft.getawayId === null ? "" : <CraftGetawayView craft={this.state.craft} admin={this.props.admin} />;
-
+			
 			return(
 
 				<div>
 					Craft View
 					<h6>ID: {this.state.craft.id}</h6>
-					<CraftDetailsView craft={this.state.craft} admin={this.props.authContext.user.isAdmin}/>
-					{CraftContactView}
-					{CraftGetawayView}
+					<CraftDetailView craft={this.state.craft} admin={this.props.authContext.user.isAdmin}/>
 				</div>
 
 			);

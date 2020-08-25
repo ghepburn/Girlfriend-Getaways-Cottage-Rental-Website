@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import AdminBookings from "./adminBookings/AdminBookings";
+import AdminCrafts from "./adminCrafts/AdminCrafts";
+import AdminUsers from "./adminUsers/AdminUsers";
 
 
 class Admin extends Component {
@@ -24,9 +26,9 @@ class Admin extends Component {
 
 	render() {
 
-		const users = this.state.showUsers ? "<UserList />" : "";
+		const users = this.state.showUsers ? <AdminUsers /> : "";
 		const getaways = this.state.showGetaways ? "getaways": ""; 
-		const crafts = this.state.showCrafts ? "<CraftList  />" : ""; 
+		const crafts = this.state.showCrafts ? <AdminCrafts  /> : ""; 
 		const bookings = this.state.showBookings ? <AdminBookings />: ""; 
 
 		return (

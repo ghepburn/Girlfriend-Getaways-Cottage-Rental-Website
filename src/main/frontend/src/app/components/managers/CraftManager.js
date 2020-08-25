@@ -1,29 +1,30 @@
-import RestService from "../services/RestService";
+import RestManager from "../managers/RestManager";
 
-class CraftService {
+class CraftManager {
 
 	static craftsApiEndpoint = "/api/crafts";
 
-	static getAllCrafts() {
-		return RestService.get(this.craftsApiEndpoint);
+	static async getAllCrafts() {
+		return await RestManager.get(this.craftsApiEndpoint);
 	}
 
-	static editCraft(id, name, desc, difficulty, materialCost, hoursRequired, pricePerPerson) {
-		let data = {"name": name, "difficulty": difficulty, "materialCost": materialCost, "hoursRequired": hoursRequired, "pricePerPerson": pricePerPerson}
-		let apiEndpoint = this.craftsApiEndpoint + "/" + id;
-		return RestService.put(apiEndpoint, data);
+	static async editCraft(craft) {
+		let apiEndpoint = this.craftsApiEndpoint + "/" + craft.id;
+		return await RestManager.put(apiEndpoint, JSON.stringify(craft));
 	}
 
-	static createCraft(name, desc, difficulty, materialCost, hoursRequired, pricePerPerson) {
-		let data={"name": name, "desc": desc, "difficulty": difficulty, "materialCost": materialCost, "hoursRequired": hoursRequired, "pricePerPerson": pricePerPerson}
-		return RestService.post(this.craftsApiEndpoint, data);
+	static async addCraft(craft) {
+		if (craft.id) {
+			delete craft.id;
+		}
+		return await RestManager.post(this.craftsApiEndpoint, JSON.stringify(craft));
 	}
 
 	static deleteCraft(id) {
 		let apiEndpoint = this.craftsApiEndpoint + "/" + id;
-		return RestService.delete(apiEndpoint);
+		return RestManager.delete(apiEndpoint);
 	}
 
 }
 
-export default CraftService;
+export default CraftManager;

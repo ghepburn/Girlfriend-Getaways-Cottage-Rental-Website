@@ -18,7 +18,7 @@ import Admin from "./services/adminService/Admin";
 import AdminBookingView from "./entities/bookings/bookingDisplays/UserAdminFullBookingView";
 import AdminCraftView from "./entities/crafts/craftDisplays/UserAdminFullCraftView";
 import Availability from "./services/availabilityService/Availability";
-import BookNow from "./index/Home";
+import BookNow from "./services/bookingService/GetawayDashboard";
 
 
 class Main extends Component {

@@ -1,28 +1,12 @@
 import React, { Component } from "react";
-import User from "./User";
-import AdminService from "../services/AdminService";
+import UserDetails from "./UserDetails";
 
 export class UserList extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			users: []
-		}
-	}
-
-	componentDidMount() {
-		AdminService.getAllUsers()
-		.then((response)=> {
-			this.setState({users:response.data});
-		}).catch((error)=>{
-			console.log("ERROR...: " + error.message);
-		})
-	}
 
 	render() {
 
-		const users = this.state.users.map(user => 
-				<User user={user} />
+		const users = this.props.users.map(user => 
+				<UserDetails user={user} admin="true"/>
 			); 
 
 		return (
@@ -35,6 +19,7 @@ export class UserList extends Component {
 						<th>Email</th>
 						<th>Role</th>
 						<th>Enabled</th>
+						<th>Role</th>
 						<th></th>
 					</tr>
 					{users}

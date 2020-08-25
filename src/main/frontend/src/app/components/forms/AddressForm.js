@@ -28,14 +28,16 @@ class AddressForm extends Component {
 	};
 
 	componentDidMount() {
-		this.setState({
-			houseNumber: this.props.address.houseNumber,
-			street: this.props.address.street,
-			town: this.props.address.town,
-			postalCode: this.props.address.postalCode,
-			province: this.props.address.province,
-			country: this.props.address.country
-		});
+		if (this.props.user) {
+			this.setState({
+				houseNumber: this.props.user.address.houseNumber,
+				street: this.props.user.address.street,
+				town: this.props.user.address.town,
+				postalCode: this.props.user.address.postalCode,
+				province: this.props.user.address.province,
+				country: this.props.user.address.country
+			});
+		}
 	}
 
 	handleChange = (event) => {
@@ -92,22 +94,22 @@ class AddressForm extends Component {
 				{this.props.generalErrors}
 				{this.state.streetNumberErrors}
 				<label>House Number:</label><br />
-				<input type="text" name="houseNumber" onChange={this.handleChange} defaultValue={this.props.address.houseNumber}/><br />
+				<input type="text" name="houseNumber" onChange={this.handleChange} defaultValue={this.state.houseNumber}/><br />
 				{this.state.streetErrors}
 				<label>Street Name:</label><br />
-				<input type="text" name="street" onChange={this.handleChange} defaultValue={this.props.address.street}/><br />
+				<input type="text" name="street" onChange={this.handleChange} defaultValue={this.state.street}/><br />
 				{this.state.townErrors}
 				<label>Town / City:</label><br />
-				<input type="text" name="town" onChange={this.handleChange} defaultValue={this.props.address.town}/><br />
+				<input type="text" name="town" onChange={this.handleChange} defaultValue={this.state.town}/><br />
 				{this.state.postalCodeErrors}
 				<label>Postal Code:</label><br />
-				<input type="text" name="postalCode" onChange={this.handleChange} defaultValue={this.props.address.postalCode}/><br />
+				<input type="text" name="postalCode" onChange={this.handleChange} defaultValue={this.state.postalCode}/><br />
 				{this.state.provinceErrors}
 				<label>Province:</label><br />
-				<input type="text" name="province" onChange={this.handleChange} defaultValue={this.props.address.province} /><br />
+				<input type="text" name="province" onChange={this.handleChange} defaultValue={this.state.province} /><br />
 				{this.state.countryErrors}
 				<label>Country:</label><br />
-				<input type="text" name="country" onChange={this.handleChange} defaultValue={this.props.address.country} /><br />
+				<input type="text" name="country" onChange={this.handleChange} defaultValue={this.state.country} /><br />
 				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
 			</div>
 		);

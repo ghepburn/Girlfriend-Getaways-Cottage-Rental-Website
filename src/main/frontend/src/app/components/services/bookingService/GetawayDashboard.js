@@ -1,56 +1,49 @@
 import React, {Component} from "react";
 import withAuthContext from "../wrappers/withAuthContext";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
+import Getaway from "../globalState/getawayContext/Getaway";
 
-import GetawayBooking from "./booking/GetawayBooking";
-import GetawayAttendees from "./attendees/GetawayAttendees";
+import GetawayBooking from "./getawayBooking/GetawayBooking";
+import GetawayAttendees from "./getawayAttendees/GetawayAttendees";
 
 class GetawayDashboard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			getaway: null,
 			booking: null,
 			attendees: null,
 			details: null,
 
-			showGetawayBooking: true,
-			showGetawayAttendees: false,
-			showGetawayDetails: false,
-
 			disableButton: true
 		}
 
+		this.createGetaway = this.createGetaway.bind(this);
 		this.updateState = this.updateState.bind(this);
+		this.validateState = this.validateState.bind(this);
 	}
 
-	createGetaway = () => {
-		let getaway = (this.state.booking, this.state.members, this.state.details, this.state.crafts);
-		this.props.onClick(getaway);
+	async createGetaway() {
+		let getaway = new Getaway(this.state.booking, this.state.attendees, this.state.details);
+		await this.setState({getaway: getaway});
+		this.validateState();
 	}
 
 	async updateState(name, value) {
-		await this.setState({[name]: value, showGetawayBooking: false, showGetawayAttendees: false, showGetawayDetails: false});
+		await this.setState({[name]: value});
 		this.validateState();
-		this.changeDisplay();
 	}
 
 	validateState = () => {
-		let data = [this.state.booking, this.state.attendees];
-		let noErrors = true
+		let data = [this.state.getaway, this.state.booking, this.state.attendees, this.state.details];
 		for (let count = 0; count < data.length; count ++) {
 			if (data[count] === null) {
 				noErrors = false;
-				this.setState({showGetawayBooking: false, showGetawayAttendees: false, showGetawayDetails: false});
-				if (count === 1) {
-					stateName = "showGetawayAttendees";
-				}  else {
-					stateName = "showGetawayDetails";
-				}
-				this.setState({[stateName]: true});
-				break;
 			}
 		}
-		this.setState({disableButton: !noErrors});
+		if (noErrors) {
+			this.setState({disableButton: false});
+		}
 	}
 
 	changeDisplay = () => {
@@ -67,6 +60,7 @@ class GetawayDashboard extends Component {
 
 		return(
 			<div>
+				<h3>Getaway Dashboard</h3>
 				{getawayBooking}
 				{getawayAttendees}
 				<SingleActionConditionalButton onClick={this.createGetaway} offButtonText="Confirm Getaway" onButtonText="Confirmed" disableButton={this.state.disableButton} />

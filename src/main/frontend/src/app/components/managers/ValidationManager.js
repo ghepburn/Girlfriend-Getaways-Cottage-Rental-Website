@@ -44,6 +44,18 @@ class ValidationManager {
 				return this.validateBookedBy(inputValue);
 			case "getawayid":
 				return this.validateGetawayId(inputValue);
+			case "name":
+				return this.validateName(inputValue);
+			case "desc":
+				return this.validateDesc(inputValue);
+			case "difficulty":
+				return this.validateDifficulty(inputValue);
+			case "hoursrequired":
+				return this.validateHoursRequired(inputValue);
+			case "materialCost":
+				return this.validateMaterialCost(inputValue);
+			case "priceperperson":
+				return this.validatePricePerPerson(inputValue);
 		}
 	}
 
@@ -210,6 +222,34 @@ class ValidationManager {
 	}
 
 	static validateGetawayId(id) {
+		let errors = "";
+		return errors;
+	}
+
+	static validateName(name) {
+		let errors = "";
+		if (name.length < 3) {
+			errors += "Please provide a valid name";
+		}
+		return errors;
+	}
+
+	static validateDesc(desc) {
+		let errors ="";
+		return errors;
+	}
+
+	static validateDifficulty(difficulty) {
+		let errors = "";
+		return errors;
+	}
+
+	static validateHoursRequired(hoursRequired) {
+		let errors = "";
+		return errors;
+	}
+
+	static validatePricePerPerson(price) {
 		let errors = "";
 		return errors;
 	}

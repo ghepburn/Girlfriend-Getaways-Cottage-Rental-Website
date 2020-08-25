@@ -3,70 +3,26 @@ import User from "../globalState/authContext/User";
 
 class UserManager {
 	static usersApiEndpoint = "/api/users";
+	static authorityApiEndpoint = "/api/authorities"
 
-	static async loginUser(user) {
-		let url = this.usersApiEndpoint + "/" + user.username;
-		let data = await RestManager.get(url);
-		user.login(data.firstName, data.lastName, data.email, data.address)
-		return user;
+	static async getUsers() {
+		return await RestManager.get(this.usersApiEndpoint);
 	}
 
-	static logoutUser(user) {
-		return new User(null);
+	static async getUserAuthority(user) {
+		let endpoint = this.authorityApiEndpoint + "/" + user.username;
+		return await RestManager.get(endpoint);
 	}
 
-	static async saveUser(user) {
-		let url = this.usersApiEndpoint + "/" + user.username;
-		let data = this.userToJson(user);
-		let response = await RestManager.put(url, data);
-		if (response != null) {
-			console.log("returning user");
-			return user;
-		} else {
-			return new User();
-		}
-
+	static async editUser(user) {
+		let endpoint = this.usersApiEndpoint + "/" + user.username;
+		return await RestManager.put(endpoint, JSON.stringify(user));
 	}
 
-	static userToJson(user) {
-		let data = {
-			"username": user.username, "firstName":user.firstName, 
-			"lastName":user.lastName, "email":user.email,
-			"address": {
-				"houseNumber": user.address.houseNumber,
-				"street": user.address.street,
-				"town": user.address.town,
-				"postalCode": user.address.postalCode,
-				"province": user.address.province,
-				"country": user.address.country
-			}
-
-		}
-		return data;
+	static async editUserAuthority(authority) {
+		let endpoint = this.authorityApiEndpoint + "/" + authority.username;
+		return await RestManager.put(endpoint, JSON.stringify(authority));
 	}
-
-	static isUsers() {
-		return this.users.length > 0 ? true : false;
-	}
-
-	static getAllUsers() {
-		return this.isUsers() ? this.users : this.callForAllUsers();
-	}
-
-	static async callForAllUsers() {
-		let users = await RestManager.get(this.usersApiEndpoint);
-		this.users = users;
-		return users;
-	}
-
-	static async getUserByUsername(username) {
-		let response = await RestManager.get(this.usersApiEndpoint + "/" + username);
-		return response.data;
-	}
-
-
-
-
 
 	
 }
