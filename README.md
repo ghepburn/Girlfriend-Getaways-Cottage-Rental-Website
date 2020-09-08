@@ -17,3 +17,4 @@ ReactJS, HTML5, and CSS were used for the frontend.  Advanced ReactJS concepts, 
 # Improvements
 -	At the time of writing, frontend design via CSS code is not included.  SASS is looking to be used to build frontend design with advanced CSS features like animations.
 -	The frontend code does not make use of ReactJS Hooks. These could be sued to reduce code and further abstract reusable components.
+- A production ready database could be used instead of Apache H2.  If this website goes to production this change will be made.
