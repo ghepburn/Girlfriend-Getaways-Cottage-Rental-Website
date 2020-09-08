@@ -1,16 +1,19 @@
-# Java-Spring-Boot-React-Full-Stack-Real-Business-Website
-Girlfriend Getaways Cottage Rentals Booking Website 
+# Girlfriend Getaways Cottage Rental Website 
+A full-stack web application for the real life business "Girlfriend Cottage Getaways". Website built to reduce business owners involvement via automating common tasks like user booking and payment.
 
-A full-stack website application for the Girlfriend Cottage Getaways business.  
+# Backend
+Java, Spring-Boot and Apache H2 in-memory database were used for the backend.  The following Spring-Boot dependencies were used: JPA, WEB-MVS, Security, and Hateaos.  The backend consists of a secured and well designed Hateaos REST API providing business data and authentication for the frontend. 
+-	Authentication is configured via Spring-Boot Security and a custom requests filter providing logic for Json web tokens.
+-	JPA models were planned, mapped and configured using Spring-Boot JPA.  Pre-planning of database models were visualized via Visual Paradigm software.  
+-	The RESTful API was configured using customized controller classes and endpoints.
 
-Includes a Java / Spring-Boot backend incoprorating Spring-Boot Security, Spring-Boot MVC, Spring-Boot REST, and Spring-Boot Hateaos.
-Backend custom controllers handle GET, POST, PUT, and DELETE HTTP methods to handle business logic and manipulate data in a H2 database.
-Spring Hateaos is used to build customized entity representation models which include data and links.
-Backend Spring Security configured to limit and grant user access.
-Backend authorization endpoint, custom filter, and controller authenticate users and grant a JSON web token for same session authentication.
+# Frontend
+ReactJS, HTML5, and CSS were used for the frontend.  Advanced ReactJS concepts, patterns and tools were used to abstract reusable code and provide a modern project structure.  Important features include:
+-	The use of ReactJS context to structure a “Global State” for the application.  This eliminates the use for common third-party libraries like Redux and reduces the required backend API calls to improve the application performance.
+-	Mixed use of ReactJS class and function classes which reduces required and redundant code.
+-	The use of React Router for frontend routing and customized authorization control. “Admin”, “Anonymous”, and “Authenticated” custom routes created to secure application.
+-	Abstracted functional components such as buttons which are designed for reuse using provided props. 
 
-The Frontend is built using ReactJs class based programming.
-A main component hosts the applications Notifcation and User contexts for unitied use accross application.
-Below the app is a component dominated by React Router to organize routing and authorization via cusomized Authenticated and Admin routes.
-
-This project is under development and is not yet complete.  The backend and the frontend logic are complete.  Remaining is the frontend CSS.
+# Improvements
+-	At the time of writing, frontend design via CSS code is not included.  SASS is looking to be used to build frontend design with advanced CSS features like animations.
+-	The frontend code does not make use of ReactJS Hooks. These could be sued to reduce code and further abstract reusable components.
