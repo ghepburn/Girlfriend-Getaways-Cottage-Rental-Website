@@ -1,0 +1,19 @@
+
+
+// ALERTS
+
+@mixin alert($colour) {
+    padding-left: 10%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: $colour;
+    color: $nav-text-colour;
+}
+
+.success {
+    @include alert($success-colour)
+}
+
+.failure {
+    @include alert($failure-colour)
+}

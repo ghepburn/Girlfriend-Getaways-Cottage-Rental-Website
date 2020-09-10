@@ -17,6 +17,7 @@ class Booking {
 		this.isAvailable = false;
 		this.bookedBy = user;
 	}
+
 }
 
 export default Booking;

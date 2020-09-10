@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 import Craft from "../globalState/craftContext/Craft";
@@ -99,28 +101,30 @@ class CraftForm extends Component {
 		let getawayIdDefault = this.props.craft ? this.props.craft.getawayId : "";		
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				{this.state.nameErrors}
-				<label>Craft Name:</label><br />
-				<input type="text" name="name" onChange={this.handleChange} defaultValue={nameDefault}/><br />
-				{this.state.descErrors}
-				<label>Description:</label><br />
-				<input type="text" name="desc" onChange={this.handleChange} defaultValue={descDefault}/><br />
-				<label>Difficulty</label>
-				{this.state.difficultyErrors}
-				<input type="text" defaultValue={difficultyDefault}/><br />
-				<label>Material Cost</label>
-				{this.state.materialCostErrors}
-				<input type="text" defaultValue={materialCostDefault} /><br />
-				{this.state.hoursRequiredErrors}
-				<label>Hours Required</label><br />
-				<input type="text" name="town" onChange={this.handleChange} defaultValue={hoursRequiredDefault}/><br />
-				{this.state.pricePerPersonErrors}
-				<label>Price Per Person:</label><br />
-				<input type="text" name="pricePerPerson" onChange={this.handleChange} defaultValue={pricePerPersonDefault}/><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="craft-form">
+					{this.props.generalErrors}
+					{this.state.nameErrors}
+					<label>Craft Name:</label><br />
+					<input type="text" name="name" onChange={this.handleChange} defaultValue={nameDefault}/><br />
+					{this.state.descErrors}
+					<label>Description:</label><br />
+					<input type="text" name="desc" onChange={this.handleChange} defaultValue={descDefault}/><br />
+					<label>Difficulty</label>
+					{this.state.difficultyErrors}
+					<input type="text" defaultValue={difficultyDefault}/><br />
+					<label>Material Cost</label>
+					{this.state.materialCostErrors}
+					<input type="text" defaultValue={materialCostDefault} /><br />
+					{this.state.hoursRequiredErrors}
+					<label>Hours Required</label><br />
+					<input type="text" name="town" onChange={this.handleChange} defaultValue={hoursRequiredDefault}/><br />
+					{this.state.pricePerPersonErrors}
+					<label>Price Per Person:</label><br />
+					<input type="text" name="pricePerPerson" onChange={this.handleChange} defaultValue={pricePerPersonDefault}/><br />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 }

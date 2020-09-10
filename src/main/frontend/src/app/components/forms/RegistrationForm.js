@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 
@@ -20,15 +22,15 @@ class RegistrationForm extends Component {
 			passwordErrors: "",
 			confirmPasswordErrors: "",
 
-			disableButton: true
+			disableButton: false
 		}
 
 		this.validateInput = this.validateInput.bind(this);
 	};
 
-	handleChange = (event) => {
-		this.setState({[event.target.name]: event.target.value});
-		this.validateInput(event.target.name, event.target.value)
+	handleChange = (name, value) => {
+		this.setState({name: value});
+		this.validateInput(name, value)
 
 	}
 
@@ -36,17 +38,19 @@ class RegistrationForm extends Component {
 
 		// get and set errors
 		let errors = ValidationManager.getErrors(name, value);
-		if (errors !== null) {
-			let stateName = name + "Errors"
-			await this.setState({[stateName]: errors});
-		} 
+		let stateName = name + "Errors";
+		await this.setState({[stateName]: errors});
 
 		// disable button if errors
-		if (this.errorFree()) {
-				this.setState({disableButton: false});
-		} else {
-			this.setState({disableButton: true});
-		}
+		this.errorFree() ? this.enabeButton() : this.disableButton();
+	}
+
+	enableButton = () => {
+		this.setState({disableButton: false});
+	}
+
+	disableButton = () => {
+		this.setState({disableButton: true});
 	}
 
 	errorFree = () => {
@@ -65,7 +69,7 @@ class RegistrationForm extends Component {
 				result = false
 			}
 		}
-		return result 
+		return result;
 	}
 
 	handleSubmit = () => {
@@ -75,30 +79,22 @@ class RegistrationForm extends Component {
 	render() {
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				{this.state.usernameErrors}
-				<label>Username:</label><br />
-				<input type="text" name="username" onChange={this.handleChange} /><br />
-				{this.state.firstNameErrors}
-				<label>First Name:</label><br />
-				<input type="text" name="firstName" onChange={this.handleChange} /><br />
-				{this.state.lastNameErrors}
-				<label>Last Name:</label><br />
-				<input type="text" name="lastName" onChange={this.handleChange} /><br />
-				{this.state.emailErrors}
-				<label>Email:</label><br />
-				<input type="text" name="email" onChange={this.handleChange} /><br />
-				{this.state.passwordErrors}
-				<label>Password:</label><br />
-				<input type="text" name="password" onChange={this.handleChange} /><br />
-				{this.state.confirmPasswordErrors}
-				<label>Confirm Password:</label><br />
-				<input type="text" name="confirmPassword" onChange={this.handleChange} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Register" offButtonText="Register" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="registration-form">
+					{this.props.generalErrors}
+
+					<FormEntity name="username" error={this.state.usernameErrors} handleChange={this.handleChange}/>
+					<FormEntity name="first_Name" error={this.state.firstNameErrors} handleChange={this.handleChange}/>
+					<FormEntity name="last_Name" error={this.state.lastNameErrors} handleChange={this.handleChange}/>
+					<FormEntity name="email" error={this.state.emailErrors} handleChange={this.handleChange}/>
+					<FormEntity name="password" error={this.state.passwordErrors} handleChange={this.handleChange}/>
+					<FormEntity name="confirm_Password" error={this.state.confirmPasswordErrors} handleChange={this.handleChange}/>
+					
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Register" offButtonText="Register" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
-};
+}
 
 export default RegistrationForm;

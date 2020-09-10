@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 import Booking from "../globalState/bookingContext/Booking";
@@ -99,29 +101,31 @@ class BookingForm extends Component {
 		let getawayIdDefault = this.props.booking ? this.props.booking.getawayId : "";		
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				{this.state.startDateErrors}
-				<label>Start Date:</label><br />
-				<input type="text" name="startDate" onChange={this.handleChange} defaultValue={startDateDefault}/><br />
-				{this.state.endDateErrors}
-				<label>End Date:</label><br />
-				<input type="text" name="endDate" onChange={this.handleChange} defaultValue={endDateDefault}/><br />
-				<label>Is Available</label>
-				<input type="checkbox" defaultValue={isAvailableDefault}/><br />
-				<label>Is Booked</label>
-				<input type="checkbox" defaultValue={isBookedDefault} /><br />
-				{this.state.bookedDateErrors}
-				<label>Booked Date:</label><br />
-				<input type="text" name="town" onChange={this.handleChange} defaultValue={bookedDateDefault}/><br />
-				{this.state.bookedByErrors}
-				<label>Booked By:</label><br />
-				<input type="text" name="bookedBy" onChange={this.handleChange} defaultValue={bookedByDefault}/><br />
-				{this.state.getawayIdErrors}
-				<label>Getaway Id:</label><br />
-				<input type="text" name="getawayId" onChange={this.handleChange} defaultValue={getawayIdDefault} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="booking-form">
+					{this.props.generalErrors}
+					{this.state.startDateErrors}
+					<label>Start Date:</label><br />
+					<input type="text" name="startDate" onChange={this.handleChange} defaultValue={startDateDefault}/><br />
+					{this.state.endDateErrors}
+					<label>End Date:</label><br />
+					<input type="text" name="endDate" onChange={this.handleChange} defaultValue={endDateDefault}/><br />
+					<label>Is Available</label>
+					<input type="checkbox" defaultValue={isAvailableDefault}/><br />
+					<label>Is Booked</label>
+					<input type="checkbox" defaultValue={isBookedDefault} /><br />
+					{this.state.bookedDateErrors}
+					<label>Booked Date:</label><br />
+					<input type="text" name="town" onChange={this.handleChange} defaultValue={bookedDateDefault}/><br />
+					{this.state.bookedByErrors}
+					<label>Booked By:</label><br />
+					<input type="text" name="bookedBy" onChange={this.handleChange} defaultValue={bookedByDefault}/><br />
+					{this.state.getawayIdErrors}
+					<label>Getaway Id:</label><br />
+					<input type="text" name="getawayId" onChange={this.handleChange} defaultValue={getawayIdDefault} /><br />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 }

@@ -1,0 +1,14 @@
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: $nav-colour;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+footer ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

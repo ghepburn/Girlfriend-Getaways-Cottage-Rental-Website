@@ -1,73 +1,66 @@
 import React, {Component} from "react";
-import withAuthContext from "../wrappers/withAuthContext";
-import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
-import Getaway from "../globalState/getawayContext/Getaway";
 
+import Getaway from "../../globalState/getawayContext/Getaway";
+
+import BookingProgressTracker from "./progressTracker/BookingProgressTracker";
 import GetawayBooking from "./getawayBooking/GetawayBooking";
 import GetawayAttendees from "./getawayAttendees/GetawayAttendees";
+import GetawaySummary from "./getawaySummary/GetawaySummary";
 
 class GetawayDashboard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			getaway: null,
-			booking: null,
-			attendees: null,
-			details: null,
+			getaway: new Getaway(),
+			
+			bookingQueue: [],
+			currentIndex: 0,
 
 			disableButton: true
 		}
-
-		this.createGetaway = this.createGetaway.bind(this);
-		this.updateState = this.updateState.bind(this);
-		this.validateState = this.validateState.bind(this);
 	}
 
-	async createGetaway() {
-		let getaway = new Getaway(this.state.booking, this.state.attendees, this.state.details);
-		await this.setState({getaway: getaway});
-		this.validateState();
+	componentDidMount() {
+		
+		const getawayBooking = <GetawayBooking getaway={this.state.getaway} updateState={this.updateState} bookingId={this.props.match.params.bookingId}/>;
+		const getawayAttendees = <GetawayAttendees getaway={this.state.getaway} updateState={this.updateState} />;
+		const getawaySummary = <GetawaySummary getaway={this.state.getaway} />;
+		
+		let bookingQueue = [getawayBooking, getawayAttendees, getawaySummary];
+
+		this.setState({bookingQueue: bookingQueue});		
 	}
 
-	async updateState(name, value) {
-		await this.setState({[name]: value});
-		this.validateState();
+	updateState = (getaway) => {
+		this.setState({getaway: getaway});
+		this.moveIndexForward();
 	}
 
-	validateState = () => {
-		let data = [this.state.getaway, this.state.booking, this.state.attendees, this.state.details];
-		for (let count = 0; count < data.length; count ++) {
-			if (data[count] === null) {
-				noErrors = false;
-			}
-		}
-		if (noErrors) {
-			this.setState({disableButton: false});
-		}
+	moveIndexForward = () => {
+		this.setState({currentIndex: this.state.currentIndex+1})
 	}
 
-	changeDisplay = () => {
-		let factors = [showGetawayBooking, showGetawayAttendees, showGetawayDetails];		
-		if (this.state.booking != null) {
-
-		}
+	moveIndexBackward = () => {
+		this.setState({currentIndex: this.state.currentIndex-1})	
 	}
 
 	render() {
 
-		const getawayBooking = this.state.showGetawayBooking ? <GetawayBooking bookingId={this.props.bookingId} user={this.props.authContext.user} name="booking" confirm={this.updateState}/><br /> : "";
-		const getawayAttendees = this.state.showGetawayAttendees ? <GetawayAttendees user={this.props.authContext.user} name="attendees" confirm={this.updateState} /> : "";
+		let currentView = this.state.bookingQueue[this.state.currentIndex]
+		let backwardButton = this.state.currentIndex > 0 ? <button onClick={this.moveIndexBackward}>Back</button> : "";
+
 
 		return(
 			<div>
 				<h3>Getaway Dashboard</h3>
-				{getawayBooking}
-				{getawayAttendees}
-				<SingleActionConditionalButton onClick={this.createGetaway} offButtonText="Confirm Getaway" onButtonText="Confirmed" disableButton={this.state.disableButton} />
-			}
+				<BookingProgressTracker getaway={this.state.getaway} />
+				
+				{currentView}
+
+				{backwardButton}
 			</div>
 		);
 	}
 }
 
-export default withAuthContext(GetawayDashboard);
+export default GetawayDashboard;

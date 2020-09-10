@@ -1,9 +1,9 @@
-
+import Booking from "./Booking";
 
 class Bookings {
 
 	constructor(bookings) {
-		this.bookings = bookings
+		this.bookings = this.bookingsToBookingObjList(bookings)
 	}
 }
 

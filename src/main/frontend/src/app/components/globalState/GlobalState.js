@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import UserManager from "../managers/UserManager";
 import User from './authContext/User';
 import AuthContext from './authContext/AuthContext';
+
 import BookingContext from './bookingContext/BookingContext';
-import Bookings from "./bookingContext/Bookings";
 import Booking from "./bookingContext/Booking";
+
 import Notification from './notificationContext/Notification';
 import NotificationContext from "./notificationContext/NotificationContext";
+
 import Craft from './craftContext/Craft';
 import CraftContext from "./craftContext/CraftContext";
+
+import Settings from "./settingsContext/Settings";
+import SettingsContext from "./settingsContext/SettingsContext";
 
 
 class GlobalState extends Component {
@@ -18,7 +23,8 @@ class GlobalState extends Component {
 			user: new User(null),
 			notification: new Notification(null, null, null),
 			bookings: [],
-			crafts: []
+			crafts: [],
+			settings: new Settings()
 		};
 		this.loginUser = this.loginUser.bind(this);
 		this.logoutUser = this.logoutUser.bind(this);
@@ -89,7 +95,7 @@ class GlobalState extends Component {
 	getBooking = (bookingId) => {
 		let bookings = this.state.bookings;
 		let booking = bookings.filter(booking => booking.id == bookingId)[0];
-		return booking;
+		return new Booking(booking.id, booking.startDate, booking.endDate, booking.isBooked, booking.isAvailable, booking.bookedDate, booking.bookedBy, booking.getawayId);
 	}
  
 
@@ -123,22 +129,28 @@ class GlobalState extends Component {
 		}
 	}
 
+	// ADMIN SETTINGS CONTEXT ------------------------------------
+
+	changeSettings(settings) {
+		this.settings = settings;
+	}
+
 	render() {
 		return (
 			<React.Fragment >
+				<SettingsContext.Provider value={{settings: this.state.settings, changeSettings: this.changeSettings}} >
+					<BookingContext.Provider value={{bookings: this.state.bookings, addBooking: this.addBooking, removeBooking: this.removeBooking, editBooking: this.editBooking, setBookings: this.setBookings, getBooking: this.getBooking}}>
+						<AuthContext.Provider value={{user: this.state.user, loginUser: this.loginUser, logoutUser: this.logoutUser, changeUser: this.changeUser}} >
+						<NotificationContext.Provider value={{notification: this.state.notification, sendNotification: this.sendNotification, removeNotification: this.removeNotification}} >
+							<CraftContext.Provider value={{crafts: this.state.crafts, setCrafts: this.setCrafts, editCraft: this.editCraft, addCraft: this.addCraft, removeCraft: this.removeCraft, getCraft: this.getCraft}} >
 
-				<BookingContext.Provider value={{bookings: this.state.bookings, addBooking: this.addBooking, removeBooking: this.removeBooking, editBooking: this.editBooking, setBookings: this.setBookings, getBooking: this.getBooking}}>
-		            <AuthContext.Provider value={{user: this.state.user, loginUser: this.loginUser, logoutUser: this.logoutUser, changeUser: this.changeUser}} >
-		              <NotificationContext.Provider value={{notification: this.state.notification, sendNotification: this.sendNotification, removeNotification: this.removeNotification}} >
-		              	<CraftContext.Provider value={{crafts: this.state.crafts, setCrafts: this.setCrafts, editCraft: this.editCraft, addCraft: this.addCraft, removeCraft: this.removeCraft, getCraft: this.getCraft}} >
+								{this.props.children}
 
-		    	            {this.props.children}
-
-		    	    	</CraftContext.Provider>
-		              </NotificationContext.Provider >
-		            </AuthContext.Provider >
-		        </BookingContext.Provider >
-
+							</CraftContext.Provider>
+						</NotificationContext.Provider >
+						</AuthContext.Provider >
+					</BookingContext.Provider >
+				</SettingsContext.Provider>
           </React.Fragment >
 		);
 	}

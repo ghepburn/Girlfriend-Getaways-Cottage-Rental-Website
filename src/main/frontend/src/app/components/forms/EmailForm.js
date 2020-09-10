@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import ValidationManager from "../managers/ValidationManager";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 
@@ -50,12 +52,14 @@ class EmailForm extends Component {
 	render() {
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				<label>New Email:</label><br />
-				<input type="text" name="email" onChange={this.handleChange} defaultValue={this.props.email}/><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Apply" offButtonText="Apply" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="email-form">
+					{this.props.generalErrors}
+					<label>New Email:</label><br />
+					<input type="text" name="email" onChange={this.handleChange} defaultValue={this.props.email}/><br />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Apply" offButtonText="Apply" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 };

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 
@@ -77,16 +79,17 @@ class AuthorityForm extends Component {
 		let enabledDefault = this.props.enabled ? this.props.enabled : false;
 
 		return (
-
-			<div>
-				{this.props.generalErrors}
-				{this.state.roleErrors}
-				<label>Is Admin:</label>
-				<input type="checkbox" name="role" onChange={this.handleRoleChange} checked={this.state.role} /><br />
-				<label>Enabled:</label>
-				<input type="checkbox" name="enabled" onChange={this.handleEnableChange} checked={this.state.enabled} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="authority-form">
+					{this.props.generalErrors}
+					{this.state.roleErrors}
+					<label>Is Admin:</label>
+					<input type="checkbox" name="role" onChange={this.handleRoleChange} checked={this.state.role} /><br />
+					<label>Enabled:</label>
+					<input type="checkbox" name="enabled" onChange={this.handleEnableChange} checked={this.state.enabled} /><br />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 }

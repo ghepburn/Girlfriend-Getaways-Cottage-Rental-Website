@@ -13,7 +13,7 @@ class NotificationManager extends Component {
 	static getSuccessfulLoginNotification(username) {
 		let action = this.successAction;
 		let message = "Welcome " + username + "!";
-		let ttl = 3;
+		let ttl = 1;
 		return this.createNotification(action, message, ttl);
 	}
 	static getFailedLoginNotification() {
@@ -26,21 +26,21 @@ class NotificationManager extends Component {
 	static getLogoutNotification(username) {
 		let action = this.successAction;
 		let message = "See you next time " + username + "!";
-		let ttl = 2;
+		let ttl = 1;
 		return this.createNotification(action, message, ttl);
 	}
 
 	static getSuccessfulRegistrationNotification(username) {
 		let action = this.successAction;
 		let message = "Account successfully created for " + username + "!";
-		let ttl = 3;
+		let ttl = 1;
 		return this.createNotification(action, message, ttl);
 	}
 
 	static getSuccessfulSettingsChangeNotification() {
 		let action = this.successAction;
 		let message = "Settings change applied.";
-		let ttl = 3;
+		let ttl = 1;
 		return this.createNotification(action, message, ttl);
 	}
 

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 
 class LoginForm extends Component {
 	constructor(props) {
+		console.log(props);
 		super(props);
 		this.state = {
 			username: "",
@@ -12,15 +15,15 @@ class LoginForm extends Component {
 			usernameErrors: "",
 			passwordErrors: "",
 
-			disableButton: true
+			disableButton: false
 		}
 
 		this.validateInput = this.validateInput.bind(this);
 	};
 
-	handleChange = (event) => {
-		this.setState({[event.target.name]: event.target.value});
-		this.validateInput(event.target.name, event.target.value)
+	handleChange = (name, value) => {
+		this.setState({name: value});
+		this.props.validateInput(name, value);
 	}
 
 	async validateInput(name, value) {
@@ -51,16 +54,14 @@ class LoginForm extends Component {
 	render() {
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				{this.state.usernameErrors}<br />
-				<label>Username:</label><br />
-				<input type="text" name="username" onChange={this.handleChange} /><br />
-				{this.state.passwordErrors}
-				<label>Password:</label><br />
-				<input type="text" name="password" onChange={this.handleChange} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Login" offButtonText="Login" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="login-form">
+					{this.props.generalErrors}
+					<FormEntity type="text" error={this.state.usernameErrors} name="username" handleChange={this.handleChange} />
+					<FormEntity type="text" error={this.state.passwordErrors} name="password" handleChange={this.handleChange} />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Login" offButtonText="Login" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 };

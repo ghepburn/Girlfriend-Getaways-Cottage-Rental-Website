@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 
@@ -54,18 +56,20 @@ class RegistrationForm extends Component {
 	render() {
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				<label>Current Password:</label><br />
-				<input type="text" name="currentPassword" onChange={this.handleChange} /><br />
-				{this.state.passwordErrors}
-				<label>Password:</label><br />
-				<input type="text" name="password" onChange={this.handleChange} /><br />
-				{this.state.confirmPasswordErrors}
-				<label>Confirm Password:</label><br />
-				<input type="text" name="confirmPassword" onChange={this.handleChange} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="password-form">
+					{this.props.generalErrors}
+					<label>Current Password:</label><br />
+					<input type="text" name="currentPassword" onChange={this.handleChange} /><br />
+					{this.state.passwordErrors}
+					<label>Password:</label><br />
+					<input type="text" name="password" onChange={this.handleChange} /><br />
+					{this.state.confirmPasswordErrors}
+					<label>Confirm Password:</label><br />
+					<input type="text" name="confirmPassword" onChange={this.handleChange} /><br />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 };

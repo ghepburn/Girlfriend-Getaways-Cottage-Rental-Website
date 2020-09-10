@@ -1,0 +1,34 @@
+
+// COLOURS
+$background-colour: white;
+$nav-colour: lightcoral;
+$content-colour: grey;
+
+$success-colour: limegreen;
+$failure-colour: crimson;
+
+$nav-text-colour:#fffe;
+$main-text-colour: black;
+$hover-colour: lightpink;
+
+// PICTURES
+$main-title-image: 'https://girlfriendgetaway.ca/uploads/3/5/4/0/35400127/3168909_3_orig.jpg';
+
+body {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+div, nav, footer, li, ul, a, p {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.app {
+    background-color: $background-colour;
+}
+

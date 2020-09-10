@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 import Address from "../globalState/authContext/Address";
@@ -40,10 +42,9 @@ class AddressForm extends Component {
 		}
 	}
 
-	handleChange = (event) => {
-		this.setState({[event.target.name]: event.target.value});
-		this.validateInput(event.target.name, event.target.value)
-
+	handleChange = (name, value) => {
+		this.setState({name: value});
+		this.validateInput(name, value)
 	}
 
 	async validateInput(name, value) {
@@ -90,28 +91,20 @@ class AddressForm extends Component {
 	render() {
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				{this.state.streetNumberErrors}
-				<label>House Number:</label><br />
-				<input type="text" name="houseNumber" onChange={this.handleChange} defaultValue={this.state.houseNumber}/><br />
-				{this.state.streetErrors}
-				<label>Street Name:</label><br />
-				<input type="text" name="street" onChange={this.handleChange} defaultValue={this.state.street}/><br />
-				{this.state.townErrors}
-				<label>Town / City:</label><br />
-				<input type="text" name="town" onChange={this.handleChange} defaultValue={this.state.town}/><br />
-				{this.state.postalCodeErrors}
-				<label>Postal Code:</label><br />
-				<input type="text" name="postalCode" onChange={this.handleChange} defaultValue={this.state.postalCode}/><br />
-				{this.state.provinceErrors}
-				<label>Province:</label><br />
-				<input type="text" name="province" onChange={this.handleChange} defaultValue={this.state.province} /><br />
-				{this.state.countryErrors}
-				<label>Country:</label><br />
-				<input type="text" name="country" onChange={this.handleChange} defaultValue={this.state.country} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="address-form">
+					{this.props.generalErrors}
+				
+					<FormEntity name="houseNumber" error={this.state.streetNumberErrors} defaultValue={this.state.streetNumber} handleChange={this.handleChange}/>
+					<FormEntity name="street" error={this.state.streetErrors} defaultValue={this.state.street} handleChange={this.handleChange}/>
+					<FormEntity name="town" error={this.state.townErrors} defaultValue={this.state.town} handleChange={this.handleChange}/>
+					<FormEntity name="postalCode" error={this.state.postalCodeErrors} defaultValue={this.state.postalCode} handleChange={this.handleChange}/>
+					<FormEntity name="province" error={this.state.provinceErrors} defaultValue={this.state.province} handleChange={this.handleChange}/>
+					<FormEntity name="country" error={this.state.countryErrors} defaultValue={this.state.country} handleChange={this.handleChange}/>
+				
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="save" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 }

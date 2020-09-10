@@ -1,11 +1,13 @@
 import React from "react";
-import withBookingContext from "../../wrappers/withBookingContext";
-import SingleActionButton from "../../functional/buttons/SingleActionButton";
+import withBookingContext from "../../../wrappers/withBookingContext";
+import withAuthContext from "../../../wrappers/withAuthContext";
+import SingleActionButton from "../../../functional/buttons/SingleActionButton";
 
 const GetawayBooking = (props) => {
 
 	let booking = props.bookingContext.getBooking(props.bookingId);
-	booking.book(props.user);
+	let user = props.authContext.user;
+	booking.book(user);
 	
 	return(
 		<div>
@@ -30,4 +32,4 @@ const GetawayBooking = (props) => {
 	)
 }
 
-export default withBookingContext(GetawayBooking);
+export default withAuthContext(withBookingContext(GetawayBooking));

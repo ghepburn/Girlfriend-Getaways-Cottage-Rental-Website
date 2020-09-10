@@ -19,7 +19,7 @@ class BookingDetailsView extends Component {
 
 		return(
 			<div>
-				Booking Details
+				Booking Details <br />
 				Start Date: {this.props.booking.startDate}
 				End Date: {this.props.booking.endDate} 
 				{button}

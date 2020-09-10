@@ -5,11 +5,11 @@ import AuthenticatedRoute from "./security/routes/AuthenticatedRoute";
 import AdminRoute from "./security/routes/AdminRoute";
 import AnonymousRoute from "./security/routes/AnonymousRoute";
 
-import Navbar from "./index/Navbar";
-import Footer from "./index/Footer";
-import Home from "./index/Home";
-import About from './index/about/About';
-import NotificationBar from "./index/NotificationBar";
+import Header from "./index/Header"
+import Footer from "./index/navigation/Footer";
+
+import Home from "./content/home/Home";
+import About from './content/about/About';
 import Registration from "./security/Registration";
 import Login from "./security/Login";
 import Logout from "./security/Logout";
@@ -20,6 +20,8 @@ import AdminCraftView from "./entities/crafts/craftDisplays/UserAdminFullCraftVi
 import Availability from "./services/availabilityService/Availability";
 import BookNow from "./services/bookingService/GetawayDashboard";
 
+import RouteEventListener from "./events/listeners/RouteEventListener";
+
 
 class Main extends Component {
 
@@ -28,42 +30,35 @@ class Main extends Component {
 
         <Router>
 
-          <header>
-            <Navbar />
-            <Route component={NotificationBar} />
-          </header>
+          <RouteEventListener />
 
-          <body>
+          <div className="header">
+            <Header />
+          </div>
+
+          <div className="content">
             <Switch>
 
-              <Route path="/availability" component={Availability} />
-
+              <AnonymousRoute component={Login} path="/login" />
+              <AnonymousRoute path="/registration" component={Registration} />
+              
+              <AuthenticatedRoute component={Logout} path="/logout" />
               <AuthenticatedRoute path="/booknow/:bookingId" component={BookNow} />
-
               <AuthenticatedRoute component={Account} path="/account/:username" />
-
+              
               <AdminRoute component={AdminBookingView} path="/admin/booking/:bookingId" admin="true"/>
-
               <AdminRoute component={AdminCraftView} path="/admin/craft/:craftId" admin="true"/>   
-
               <AdminRoute component={Admin} path="/admin" />   
 
-              <Route path="/register" component={Registration} />
-
-              <AnonymousRoute component={Login} path="/login" />
-
-              <AuthenticatedRoute component={Logout} path="/logout" />
-
-               <Route path="/about" component={About} />
-
+              <Route path="/availability" component={Availability} /> 
+              <Route path="/about" component={About} />
               <Route path="/" component={Home} />
-
             </Switch>
-          </body>
+          </div>
 
-          <footer >
+          <div className="footer">
             <Footer />
-          </footer>
+          </div>
 
         </Router>
 

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Form from "../functional/forms/Form";
+import FormEntity from "../functional/forms/FormEntity";
 import SingleActionConditionalButton from "../functional/buttons/SingleActionConditionalButton";
 import ValidationManager from "../managers/ValidationManager";
 import User from "../globalState/authContext/User";
@@ -90,19 +92,21 @@ class UserSettingsForm extends Component {
 		let emailDefault = this.props.user ? this.props.user.email : "";
 
 		return (
-			<div>
-				{this.props.generalErrors}
-				{this.state.firstNameErrors}
-				<label>First Name:</label><br />
-				<input type="text" name="firstName" onChange={this.handleChange} defaultValue={firstNameDefault} /><br />
-				{this.state.lastNameErrors}
-				<label>Last Name:</label><br />
-				<input type="text" name="lastName" onChange={this.handleChange} defaultValue={lastNameDefault} /><br />
-				{this.state.emailErrors}
-				<label>Email:</label><br />
-				<input type="text" name="email" onChange={this.handleChange} defaultValue={emailDefault} /><br />
-				<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
-			</div>
+			<Form>
+				<div className="user-settings-form">
+					{this.props.generalErrors}
+					{this.state.firstNameErrors}
+					<label>First Name:</label><br />
+					<input type="text" name="firstName" onChange={this.handleChange} defaultValue={firstNameDefault} /><br />
+					{this.state.lastNameErrors}
+					<label>Last Name:</label><br />
+					<input type="text" name="lastName" onChange={this.handleChange} defaultValue={lastNameDefault} /><br />
+					{this.state.emailErrors}
+					<label>Email:</label><br />
+					<input type="text" name="email" onChange={this.handleChange} defaultValue={emailDefault} /><br />
+					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Save" offButtonText="Save" disableButton={this.state.disableButton} />
+				</div>
+			</Form>
 		);
 	}
 }
