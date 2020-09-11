@@ -23,7 +23,7 @@ class LoginForm extends Component {
 
 	handleChange = (name, value) => {
 		this.setState({name: value});
-		this.props.validateInput(name, value);
+		this.validateInput(name, value);
 	}
 
 	async validateInput(name, value) {
@@ -56,10 +56,11 @@ class LoginForm extends Component {
 		return (
 			<Form>
 				<div className="login-form">
+					<p className="form-title">Login</p>
 					{this.props.generalErrors}
 					<FormEntity type="text" error={this.state.usernameErrors} name="username" handleChange={this.handleChange} />
 					<FormEntity type="text" error={this.state.passwordErrors} name="password" handleChange={this.handleChange} />
-					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Login" offButtonText="Login" disableButton={this.state.disableButton} />
+					<button className="button form-button" onClick={this.handleSubmit}>Login</button>
 				</div>
 			</Form>
 		);

@@ -6,7 +6,10 @@ import RestManager from "./RestManager";
 
 class AuthManager {
 
+
 	static authenticationApiEndpoint = "/api/authenticate";
+	static usernameExistsApiEndpoint = "/api/users/";
+	static registrationApiEndpoint = "/api/users"
 
 	static async loginUser(user) {
 		this.authenticateUser(user)
@@ -32,18 +35,20 @@ class AuthManager {
     	logoutFunc();
     }
 
-	static async registerUser(username, firstName, lastName, email, password, confirmPassword) {
-		let data = {"username": username, "firstName":firstName, "lastName":lastName, "email":email, "password":password, "address":{"houseNumber":"", "street":"default", "town":"default", "postalCode": "default", "province": "Ontario", "country": "Canada"}};
+	static async registerUser(user) {
+		user.address= {"houseNumber":"", "street":"default", "town":"default", "postalCode": "default", "province": "Ontario", "country": "Canada"};
+		let data = JSON.stringify(user);
+		console.log(data);
 		let response = await RestManager.post(this.registrationApiEndpoint, data);
 		if (response != null) {
-			return new User(username)
+			return user;
 		} else {
-			return new User(null);
+			return null;
 		}
 	}
 
 	static async usernameExists(username) {
-		let url = this.usernameExistsApiEndpoint + username + "/exists";
+		let url = `${this.usernameExistsApiEndpoint}${username}/exists`;
 		let response = await RestManager.get(url);
 		return response;
 	} 

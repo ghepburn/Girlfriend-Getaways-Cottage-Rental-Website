@@ -1,5 +1,11 @@
 @import 'style/global';
 @import 'style/navbar';
+
 @import 'style/alerts';
+@import 'style/forms';
+
 @import 'style/content';
+@import "style/pages/home";
+@import "style/pages/about";
+
 @import 'style/footer';

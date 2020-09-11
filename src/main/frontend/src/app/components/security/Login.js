@@ -1,42 +1,41 @@
-import React, { Component } from "react";
-import LoginForm from "../forms/LoginForm";
+import React, { useContext } from "react";
+
+import Form from "../functional/forms/Form";
 
 import NotificationManager from "../managers/NotificationManager";
 import AuthManager from "../managers/AuthManager";
+
+import NotificationContext from "../globalState/notificationContext/NotificationContext";
+import AuthContext from "../globalState/authContext/AuthContext";
 
 import withNotificationContext from "../wrappers/withNotificationContext";
 import withAuthContext from "../wrappers/withAuthContext";
 
 
-class Login extends Component {
-	constructor(props){
-		super(props);
-		this.state={
-			generalErrors: ""
-		}
+const Login = (props) => {
 
-		this.loginClicked = this.loginClicked.bind(this);
-	}
+	const authContext = useContext(AuthContext);
+	const notificationContext = useContext(NotificationContext);
 
-	async loginClicked(username, password) {
+	const handleSubmit = async ({username, password}) => {
 		let user = await AuthManager.authenticateUser(username, password);
 		if (user.isAuthenticated) {
-			this.props.authContext.loginUser(user);
-			this.props.notificationContext.sendNotification(NotificationManager.getSuccessfulLoginNotification(user.username));
+			authContext.loginUser(user);
+			notificationContext.sendNotification(NotificationManager.getSuccessfulLoginNotification(username));
 		} else {
-			this.setState({generalErrors: "Login failed.  Please try again."});
+			notificationContext.sendNotification(NotificationManager.getFailedLoginNotification(username));		
 		}
 	}
 
-	render() {
-			
-		return (
-			<div>
-				<h3>Login</h3>
-				<LoginForm loginClicked={this.loginClicked} generalErrors={this.state.generalErrors}/>
-			</div>
-		);
-	}
+	const formInputs = [
+		{name: "username", defaultValue: "greg"}, {name: "password"}
+	]
+
+	return (
+		<div>
+			<Form title="Login" action="Login" inputs={formInputs} handleSubmit={handleSubmit} />
+		</div>
+	);
 };
 
-export default withAuthContext(withNotificationContext(Login));
+export default Login;

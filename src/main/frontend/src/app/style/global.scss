@@ -7,12 +7,52 @@ $content-colour: grey;
 $success-colour: limegreen;
 $failure-colour: crimson;
 
+$hover-colour: lightpink;
+
+// TEXT
 $nav-text-colour:#fffe;
 $main-text-colour: black;
-$hover-colour: lightpink;
+$passive-text-colour: grey;
+
+$passive-text-size: 14px;
+$buttontext-size: 15px;
+
+// TITLES
+.page-title {
+
+}
+
+@mixin sub-title() {
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
 
 // PICTURES
 $main-title-image: 'https://girlfriendgetaway.ca/uploads/3/5/4/0/35400127/3168909_3_orig.jpg';
+
+
+// BUTTONS
+
+.button {
+    
+    background-color: $nav-colour;
+    display: flex;
+    font-size: $buttontext-size;
+    border-radius: 5px;
+    padding: 1%;
+    padding-right: 3%;
+    padding-left: 3%;
+    margin: auto;
+    margin-top: 4%;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: $hover-colour;
+}
+
 
 body {
     box-sizing: border-box;
@@ -30,5 +70,10 @@ div, nav, footer, li, ul, a, p {
 
 .app {
     background-color: $background-colour;
+}
+
+@mixin passive-text() {
+    font-size: $passive-text-size;
+    color: $passive-text-colour;
 }
 

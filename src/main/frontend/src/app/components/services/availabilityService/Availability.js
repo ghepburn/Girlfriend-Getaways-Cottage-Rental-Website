@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+
+import Table from "../../functional/tables/Table";
+import TableEntity from "../../functional/tables/TableEntity";
+
 import BookingContext from "../../globalState/bookingContext/BookingContext";
 import AvailabilityBooking from "./AvailabilityBooking";
 import BookingManager from "../../managers/BookingManager";
@@ -19,11 +23,11 @@ class Availabillity extends Component {
 
 	render() {
 
+		const doNotInclude = ["startDate"]
+
 		return (
 			<div>
-				<h3>Availabillity</h3>
-				<BookingList bookings={this.context.bookings} admin="false" />
-
+				<Table title="Availabillity" inputs={this.context.bookings} doNotInclude={doNotInclude} />
 			</div>
 		);
 	}

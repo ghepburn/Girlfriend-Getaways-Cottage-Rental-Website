@@ -14,8 +14,8 @@ const FormEntity = (props) => {
 
     return (  
         <div className="form-entity">
-            <p className="form-entity-error">{errors}</p>
             <label className="form-entity-label">{displayName}:</label>
+            <p className="form-entity-error">{errors}</p>
             <input className="form-entity-input" type={type} name={name} defaultValue={defaultValue} onChange={handleChange} />
         </div>
     );

@@ -1,49 +1,45 @@
-import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
+import React, { useContext } from "react";
+
 import AuthManager from "../managers/AuthManager";
 import NotificationManager from "../managers/NotificationManager";
-import RegistrationForm from "../forms/RegistrationForm";
-import withNotificationContext from "../wrappers/withNotificationContext";
 
-export class Registration extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			generalErrors: "",
-			showRedirect: false
-		}
+import NotificationContext from "../globalState/notificationContext/NotificationContext";
 
-		this.registrationClicked = this.registrationClicked.bind(this);
-	}
+import Form from "../functional/forms/Form";
 
-	async registrationClicked(username, firstName, lastName, email, password, confirmPassword) {
-		let usernameExists = await AuthManager.usernameExists(username);
+const Registration = (props) => {
+
+	const notificationContext = useContext(NotificationContext);
+
+	const handleSubmit = async (user) => {
+		let usernameExists = await AuthManager.usernameExists(user.username);
 		if (usernameExists) {
-			let errorMsg = "Username '" + username + "' already exists.  Please choose another."
-			this.setState({generalErrors: errorMsg});
+			notificationContext.sendNotification(NotificationManager.sendUsernameExistsNotification(user.username));
 		} else {
-			let user = await AuthManager.registerUser(username, firstName, lastName, email, password, confirmPassword);
-			if (user.username != null) {
-				let notification = NotificationManager.getSuccessfulRegistrationNotification(username);
-				await this.props.notificationContext.sendNotification(notification); 
-				this.props.history.push("/login");
+			let registeredUser = await AuthManager.registerUser(user);
+			if (registeredUser) {
+				notificationContext.sendNotification(NotificationManager.getSuccessfulRegistrationNotification(user.username));
+				props.history.push("/login");
 			} else {
-				this.setState({generalErrors: "Registration failed.  Please try again."});
+				notificationContext.sendNotification(NotificationManager.getFailedRegistrationNotification());
 			}	
 		}
 	}
 
-	render() {
+	let inputValues = [
+		{name: "username"}, 
+		{name:"first_Name"},
+		{name: "last_Name"},
+		{name: "email"},
+		{name: "password"},
+		{name: "confirm_Password"}
+	]
 
-		const redirect = this.state.showRedirect ? <Redirect to="/login" /> : ""; 
-
-		return (
-			<div>
-				{redirect}
-				<RegistrationForm registrationClicked={this.registrationClicked} generalErrors={this.state.generalErrors}/>
-			</div>
-		);
-	}
+	return (
+		<div>
+			<Form title="Registration" action="register" inputs={inputValues} handleSubmit={handleSubmit} />
+		</div>
+	);
 };
 
-export default withNotificationContext(Registration);
+export default Registration;

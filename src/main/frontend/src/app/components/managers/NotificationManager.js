@@ -16,7 +16,7 @@ class NotificationManager extends Component {
 		let ttl = 1;
 		return this.createNotification(action, message, ttl);
 	}
-	static getFailedLoginNotification() {
+	static getFailedLoginNotification(username) {
 		let action = this.failedAction;
 		let message = "Incorrect login information.  Please try again.";
 		let ttl = 1;
@@ -32,7 +32,21 @@ class NotificationManager extends Component {
 
 	static getSuccessfulRegistrationNotification(username) {
 		let action = this.successAction;
-		let message = "Account successfully created for " + username + "!";
+		let message = `Account successfully created for ${username}!`;
+		let ttl = 1;
+		return this.createNotification(action, message, ttl);
+	}
+
+	static getFailedRegistrationNotification() {
+		let action = this.failedAction;
+		let message = "Registration failed.  Please try again."
+		let ttl = 1;
+		return this.createNotification(action, message, ttl);
+	}
+
+	static getUsernameExistsNotification(username) {
+		let action = this.failedAction;
+		let message = `${username} already exists. Please change the username and try again.`;
 		let ttl = 1;
 		return this.createNotification(action, message, ttl);
 	}

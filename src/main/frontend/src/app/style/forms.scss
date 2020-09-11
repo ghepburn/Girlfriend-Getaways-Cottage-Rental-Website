@@ -1,0 +1,42 @@
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+ }
+
+ .inside-form {
+    border: solid;
+    border-color: lightgrey;
+    border-radius: 10px;
+    padding: 2%;
+
+ }
+
+ .form-title {
+    @include sub-title();
+     padding-bottom: 7%;
+ }
+ 
+ .form-entity {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    white-space: nowrap;
+ }
+ 
+ .form-entity-error {
+    padding-bottom: 1%;
+    padding-top: 1%;
+    @include passive-text();
+ }
+
+ .form-entity label {
+    padding-right: 1%;
+ }
+

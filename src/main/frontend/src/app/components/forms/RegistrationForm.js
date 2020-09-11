@@ -82,7 +82,7 @@ class RegistrationForm extends Component {
 			<Form>
 				<div className="registration-form">
 					{this.props.generalErrors}
-
+					<p className="form-title">Create An Account</p>
 					<FormEntity name="username" error={this.state.usernameErrors} handleChange={this.handleChange}/>
 					<FormEntity name="first_Name" error={this.state.firstNameErrors} handleChange={this.handleChange}/>
 					<FormEntity name="last_Name" error={this.state.lastNameErrors} handleChange={this.handleChange}/>
@@ -90,7 +90,7 @@ class RegistrationForm extends Component {
 					<FormEntity name="password" error={this.state.passwordErrors} handleChange={this.handleChange}/>
 					<FormEntity name="confirm_Password" error={this.state.confirmPasswordErrors} handleChange={this.handleChange}/>
 					
-					<SingleActionConditionalButton onClick={this.handleSubmit} onButtonText="Register" offButtonText="Register" disableButton={this.state.disableButton} />
+					<button className="button form-button" onClick={this.handleSubmit}>Register</button>
 				</div>
 			</Form>
 		);
