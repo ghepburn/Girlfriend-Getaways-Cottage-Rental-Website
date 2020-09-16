@@ -4,13 +4,10 @@ import SettingsContext from "../../globalState/settingsContext/SettingsContext";
 const Home = () => {
 
 	const settingsContext = useContext(SettingsContext);
-	console.log(settingsContext);
 
 	return (
 		<div className="home">
-			<div className="home-title">
-			</div>
-			<div className="centered-wording">
+			<div className="page-title">
 				{settingsContext.settings.homeIntroduction}
 			</div>
 		</div>

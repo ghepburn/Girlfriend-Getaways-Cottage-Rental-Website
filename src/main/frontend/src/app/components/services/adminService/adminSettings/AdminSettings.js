@@ -1,22 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from "react";
 import SettingsContext from "../../../globalState/settingsContext/SettingsContext";
-import AdminSettingsForm from "../../../forms/AdminSettingsForm";
+import Table from "../../../functional/tables/ObjectTable";
+import HiddenComponent from "../../../functional/objects/HiddenComponent";
 
-const AdminSettings = () => {
-    
-    const settingsContext = useContext(SettingsContext);
-    const settings = settingsContext.settings;
 
-    const onChange = (settings) => {
-        settingsContext.setSettings(settings);
-    }
+const AdminSettings = (props) => {
 
-    return (  
-        <div className="admin-settings">
-            <p className="page-title">Settings</p>
-            <AdminSettingsForm settings={settings} onChange={onChange}/>
-        </div>
-    );
-}
- 
+	const settingsContext = useContext(SettingsContext);
+	const [settings, setSettings] = useState(settingsContext.settings);	
+
+	return (
+		<div className="admin-settingss">
+			<Table {...props} title="Settings" inputs={settings} buttonText="Edit" />
+		</div>
+	);
+};
+
 export default AdminSettings;

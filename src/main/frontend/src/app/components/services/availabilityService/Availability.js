@@ -1,36 +1,32 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 
-import Table from "../../functional/tables/Table";
-import TableEntity from "../../functional/tables/TableEntity";
+import Table from "../../functional/tables/ArrayTable";
 
 import BookingContext from "../../globalState/bookingContext/BookingContext";
-import AvailabilityBooking from "./AvailabilityBooking";
 import BookingManager from "../../managers/BookingManager";
 
-import BookingList from "../../entities/bookings/BookingList";
 
-class Availabillity extends Component {
-	static contextType = BookingContext;
+const Availabillity = (props) => {
+	const bookingContext = useContext(BookingContext);
 
-	async componentDidMount() {
-		let bookings = this.context.bookings;
-		if (bookings.length === 0) {
-			// set bookings
-			let updatedBookings = await BookingManager.getAllBookings();
-			this.context.setBookings(updatedBookings);
-		}
-	}
+	if (bookingContext.bookings.length > 0) {
 
-	render() {
+		const doNotInclude = ["links"]
 
-		const doNotInclude = ["startDate"]
+
 
 		return (
 			<div>
-				<Table title="Availabillity" inputs={this.context.bookings} doNotInclude={doNotInclude} />
+				<Table {...props} title="Availabillity" inputs={bookingContext.bookings} toInclude={["startDate", "endDate"]} buttonText="Book Now" />
 			</div>
 		);
+
+	} else {
+		props.history.push("/")
+		return null;
 	}
 };
+
+	
 
 export default Availabillity;

@@ -13,6 +13,14 @@
     border-color: lightgrey;
     border-radius: 10px;
     padding: 2%;
+ }
+
+ .inside-form div {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
  }
 
@@ -22,21 +30,25 @@
  }
  
  .form-entity {
+    width: 100%;
     padding-top: 2%;
     padding-bottom: 2%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     white-space: nowrap;
+ }
+
+ .form-entity-label, .form-entity-error, .form-entity-input {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
  }
  
  .form-entity-error {
-    padding-bottom: 1%;
-    padding-top: 1%;
-    @include passive-text();
- }
-
- .form-entity label {
-    padding-right: 1%;
+   white-space: normal;
+   padding-bottom: 1%;
+   padding-top: 1%;
+   @include passive-text();
  }
 

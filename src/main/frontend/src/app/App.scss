@@ -1,11 +1,14 @@
 @import 'style/global';
 @import 'style/navbar';
 
+@import 'style/buttons';
 @import 'style/alerts';
 @import 'style/forms';
+@import 'style/table';
 
 @import 'style/content';
 @import "style/pages/home";
 @import "style/pages/about";
+@import "style/pages/admin";
 
 @import 'style/footer';

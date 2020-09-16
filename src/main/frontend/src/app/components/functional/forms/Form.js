@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ValidationManager from "../../managers/ValidationManager";
 import FormEntity from "./FormEntity";
 
+import Button from "../buttons/Button";
+
 class Form extends Component {
     
     state = {
@@ -11,6 +13,8 @@ class Form extends Component {
     }
 
     componentDidMount = async () => {
+
+
         this.props.inputs.map(input => {
             
             let errorName = `${input.name}Error`;
@@ -92,7 +96,7 @@ class Form extends Component {
                     <div className={formType}>
                         <p className="form-title">{this.props.title}</p>
                         {formInputs}
-        <button className="button form-button" onClick={this.handleSubmit} disabled={submitDisabled} >{this.props.action}</button>
+                        <Button className="button form-button" onClick={this.handleSubmit} disabled={submitDisabled} >{this.props.action}</Button>
                     </div>
                 </div>
             </div>

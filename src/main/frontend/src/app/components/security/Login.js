@@ -2,28 +2,21 @@ import React, { useContext } from "react";
 
 import Form from "../functional/forms/Form";
 
-import NotificationManager from "../managers/NotificationManager";
-import AuthManager from "../managers/AuthManager";
-
-import NotificationContext from "../globalState/notificationContext/NotificationContext";
-import AuthContext from "../globalState/authContext/AuthContext";
-
 import withNotificationContext from "../wrappers/withNotificationContext";
 import withAuthContext from "../wrappers/withAuthContext";
 
 
-const Login = (props) => {
-
-	const authContext = useContext(AuthContext);
-	const notificationContext = useContext(NotificationContext);
+const Login = ({authenticateUser, loginUser, sendNotification, history}) => {
 
 	const handleSubmit = async ({username, password}) => {
-		let user = await AuthManager.authenticateUser(username, password);
+		let user = await authenticateUser(username, password);
 		if (user.isAuthenticated) {
-			authContext.loginUser(user);
-			notificationContext.sendNotification(NotificationManager.getSuccessfulLoginNotification(username));
+			console.log(user);
+			loginUser(user);
+			history.push("/");
+			sendNotification("successfulLogin", user.username);
 		} else {
-			notificationContext.sendNotification(NotificationManager.getFailedLoginNotification(username));		
+			sendNotification("failedLogin");
 		}
 	}
 
@@ -38,4 +31,4 @@ const Login = (props) => {
 	);
 };
 
-export default Login;
+export default withNotificationContext(withAuthContext(Login));

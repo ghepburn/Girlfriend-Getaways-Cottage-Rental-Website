@@ -1,46 +1,24 @@
-import React, { Component } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CraftContext from "../../../globalState/craftContext/CraftContext";
 import CraftManager from "../../../managers/CraftManager";
-import SingleActionButton from "../../../functional/buttons/SingleActionButton";
-
-import CraftList from "../../../entities/crafts/CraftList";
-import CreateCraft from "../../../entities/crafts/actions/CreateCraft";
+import Table from "../../../functional/tables/ArrayTable";
 
 
-class AdminCrafts extends Component {
-	static contextType = CraftContext;
+const AdminCrafts = (props) => {
 
-	state = {
-		showCreateCraft: false
-	}
+	const craftContext = useContext(CraftContext);
+	const [crafts, setCrafts] = useState(craftContext.crafts);	
 
-	async componentDidMount() {
-		let crafts = this.context.crafts;
-		if (crafts.length === 0) {
-			// set Crafts
-			let updatedCrafts = await CraftManager.getAllCrafts();
-			this.context.setCrafts(updatedCrafts);
-		}
-	}
+	useEffect((async ()=>{
+		const updatedCrafts = crafts.length > 0 ? crafts : await CraftManager.getAllCrafts();
+		setCrafts(updatedCrafts);
+	}), []);
 
-	toggleCreateCraft = () => {
-		this.setState({showCreateCraft: !this.state.showCreateCraft});
-	}
-
-	render() {
-
-		let createCraft = this.state.showCreateCraft ? <CreateCraft /> : "";
-
-		return (
-			<div>
-				<h3>Crafts</h3>
-
-				<CraftList crafts={this.context.crafts} admin="true" />
-				<SingleActionButton onClick={this.toggleCreateCraft} offButtonText="Add Craft" onButtonText="Close"/>
-				{createCraft}
-			</div>
-		);
-	}
+	return (
+		<div className="admin-crafts">
+			<Table {...props} title="Crafts" inputs={crafts} buttonText="Edit" />
+		</div>
+	);
 };
 
 export default AdminCrafts;

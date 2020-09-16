@@ -1,0 +1,43 @@
+
+
+.table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+ }
+
+ .inside-table {
+    border: solid;
+    border-color: lightgrey;
+    border-radius: 10px;
+    padding: 2%;
+
+ }
+
+ .table-title {
+    @include sub-title();
+     padding-bottom: 7%;
+ }
+
+ tr {
+    padding: 2%;
+    white-space: nowrap;
+ }
+
+ td {
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: nowrap;
+   text-align: center;
+ }
+
+ .table-header {
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+    padding-bottom: 4%;
+ }
+ 
+
+

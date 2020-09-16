@@ -1,19 +1,22 @@
-import { Route, Redirect } from "react-router-dom";
-import React, { Component } from "react";
-import withAuthContext from "../../wrappers/withAuthContext";
+import React, { useContext } from "react";
+
+import { Route, withRouter, Redirect } from "react-router-dom";
+
 import AuthContext from "../../globalState/authContext/AuthContext";
 
 
-class AnonymousRoute extends Component {
+const AnonymousRoute = (props) => {
 
-	render() {
+	const authContext = useContext(AuthContext);
+	const user = authContext.user;
 
-		if (this.props.authContext.user.isAuthenticated) {
-			return <Redirect to="/" />		
-		}  else {
-			return <Route {...this.props} component={this.props.component} />
-		}
+	if (!user.isAuthenticated) {
+		return (
+			<Route {...props} component={props.component} />
+		);
+	} else {
+		return <Route {...props} component={props.component} />
 	}
 }
 
-export default withAuthContext(AnonymousRoute);
+export default withRouter(AnonymousRoute);

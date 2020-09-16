@@ -1,31 +1,23 @@
-import React, { Component } from "react";
-import SingleActionButton from "../../../functional/buttons/SingleActionButton";
+import React, { useState, useEffect } from "react";
 
-import UserList from "../../../entities/users/UserList";
+import Table from "../../../functional/tables/ArrayTable";
 import UserManager from "../../../managers/UserManager";
 
 
-class AdminUsers extends Component {
+const AdminUsers = (props) => {
 
-	state={
-		users: []
-	}
+	const [users, setUsers] = useState([]);
 
-	async componentDidMount() {
-		let users = await UserManager.getUsers();
-		this.setState({users: users});
-	}
+	useEffect(async ()=>{
+		const users = await UserManager.getUsers();
+		setUsers(users);
+	}, []);
 
-	render() {
-
-		return (
-			<div>
-				<h3>Users</h3>
-				<UserList users={this.state.users} admin="true" />
-	
-			</div>
-		);
-	}
-};
+	return (
+		<div className="admin-users">		
+			<Table {...props} inputs={users} title="Users" toInclude={["username", "firstName", "lastName", "email"]} buttonText="View" />
+		</div>
+	);
+}
 
 export default AdminUsers;

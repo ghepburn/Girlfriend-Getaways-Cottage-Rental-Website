@@ -33,25 +33,7 @@ $buttontext-size: 15px;
 $main-title-image: 'https://girlfriendgetaway.ca/uploads/3/5/4/0/35400127/3168909_3_orig.jpg';
 
 
-// BUTTONS
 
-.button {
-    
-    background-color: $nav-colour;
-    display: flex;
-    font-size: $buttontext-size;
-    border-radius: 5px;
-    padding: 1%;
-    padding-right: 3%;
-    padding-left: 3%;
-    margin: auto;
-    margin-top: 4%;
-    cursor: pointer;
-}
-
-.button:hover {
-    background-color: $hover-colour;
-}
 
 
 body {

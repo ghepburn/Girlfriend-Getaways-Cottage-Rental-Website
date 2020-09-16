@@ -50,6 +50,7 @@ class AuthManager {
 	static async usernameExists(username) {
 		let url = `${this.usernameExistsApiEndpoint}${username}/exists`;
 		let response = await RestManager.get(url);
+		console.log(response);
 		return response;
 	} 
 }

@@ -1,28 +1,28 @@
 import React, { useContext } from "react";
 
-import AuthManager from "../managers/AuthManager";
-import NotificationManager from "../managers/NotificationManager";
-
-import NotificationContext from "../globalState/notificationContext/NotificationContext";
+import withAuthContext from "../wrappers/withAuthContext";
+import withNotificationContext from "../wrappers/withNotificationContext";
 
 import Form from "../functional/forms/Form";
 
-const Registration = (props) => {
-
-	const notificationContext = useContext(NotificationContext);
+const Registration = ({sendNotification, registerUser, usernameExists, history}) => {
 
 	const handleSubmit = async (user) => {
-		let usernameExists = await AuthManager.usernameExists(user.username);
-		if (usernameExists) {
-			notificationContext.sendNotification(NotificationManager.sendUsernameExistsNotification(user.username));
+		let exists = false;
+		exists = await usernameExists(user.username);
+
+		if (exists) {
+			sendNotification("usernameExists", user.username);
 		} else {
-			let registeredUser = await AuthManager.registerUser(user);
+			
+			const registeredUser = await registerUser(user);
 			if (registeredUser) {
-				notificationContext.sendNotification(NotificationManager.getSuccessfulRegistrationNotification(user.username));
-				props.history.push("/login");
+				history.push("/");
+				sendNotification("successfulRegistration", user.username);
 			} else {
-				notificationContext.sendNotification(NotificationManager.getFailedRegistrationNotification());
-			}	
+				sendNotification("failedRegistration");
+			}
+
 		}
 	}
 
@@ -37,9 +37,9 @@ const Registration = (props) => {
 
 	return (
 		<div>
-			<Form title="Registration" action="register" inputs={inputValues} handleSubmit={handleSubmit} />
+			<Form title="Registration" action="Register" inputs={inputValues} handleSubmit={handleSubmit} />
 		</div>
 	);
 };
 
-export default Registration;
+export default withAuthContext(withNotificationContext(Registration));

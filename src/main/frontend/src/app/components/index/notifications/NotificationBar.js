@@ -6,6 +6,8 @@ const NotificationBar = (props) => {
 
     const notificationContext = useContext(NotificationContext);
     let notification = notificationContext.notification;
+    console.log("notification bar----");
+    console.log(notification);
     let alert = notification.isNotification ? <Alert action={notification.action} message={notification.message} /> : ""; 
     
     return (  
